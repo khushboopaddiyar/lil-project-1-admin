@@ -5,7 +5,7 @@ function App() {
   return (
     <div className="App">
      <ReactBootStrap.Navbar collapseOnSelect expand="xl" bg="primary" variant="dark">
-  <ReactBootStrap.Navbar.Brand href="#home">LIL-PROJECT</ReactBootStrap.Navbar.Brand>
+  <ReactBootStrap.Navbar.Brand href="#home">LIL</ReactBootStrap.Navbar.Brand>
   <ReactBootStrap.Navbar.Toggle aria-controls="responsive-navbar-nav" />
   <ReactBootStrap.Navbar.Collapse id="responsive-navbar-nav">
     <ReactBootStrap.Nav className="mr-auto">
@@ -20,9 +20,9 @@ function App() {
       </ReactBootStrap.NavDropdown>
     </ReactBootStrap.Nav>
     <ReactBootStrap.Nav>
-      <ReactBootStrap.Nav.Link href="#deets">More deets</ReactBootStrap.Nav.Link>
+      <ReactBootStrap.Nav.Link href="#deets">actions4</ReactBootStrap.Nav.Link>
       <ReactBootStrap.Nav.Link eventKey={2} href="#memes">
-        Dank memes
+        action5
       </ReactBootStrap.Nav.Link>
     </ReactBootStrap.Nav>
   </ReactBootStrap.Navbar.Collapse>
