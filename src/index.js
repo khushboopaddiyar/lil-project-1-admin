@@ -1,14 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Form from './Pages/Auth';
+import Nav from './Pages/Nav';
+import Form from './Pages/Auth'
 import * as serviceWorker from './serviceWorker';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Form />,
-    </React.StrictMode>,
-    
+    <Nav />
+    <Form />
+  </React.StrictMode>,
   document.getElementById('root')
 );
 
