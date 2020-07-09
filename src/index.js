@@ -5,8 +5,9 @@ import Form from './Pages/Auth';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-
+  <React.StrictMode>
     <Form />,
+    </React.StrictMode>,
     
   document.getElementById('root')
 );
