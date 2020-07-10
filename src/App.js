@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import Auth from './Pages/Auth'
 import Nav from './Pages/Nav'
+import ContactUs from './Protected/ContactUs'
+import DemoRequest from './Protected/DemoRequest'
 import UserContext from './context/UserContext'
 import { BrowserRouter as Router, Switch, Redirect, Route } from 'react-router-dom'
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -31,9 +34,11 @@ function App() {
     <>
       <UserContext.Provider value={{ user, login, logout }}>
         <Router>
+        <Nav />
           <Switch>
-            {!user.token && <Redirect from="/auth" to="/auth" exact />}
-            {!user.token && <Redirect from="/nav" to="/nav" exact />}
+          {!user.token && <Route path="/auth" component={Auth} exact />}
+          {user.token && <Route path="/demo" component={DemoRequest} exact />}
+          {user.token && <Route path="/contactus" component={ContactUs} exact />}
           </Switch>
         </Router>
       </UserContext.Provider>

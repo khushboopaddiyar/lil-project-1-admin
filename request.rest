@@ -10,7 +10,7 @@ Content-Type: application/json
 
 ### Get all Demo Requests
 GET https://lil-project-1.herokuapp.com/api/demorequests
-Authorization: 
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjA4MDcyZTBjZDJhNzNhMWM0OTY5MTYiLCJpYXQiOjE1OTQzNjI1Nzl9.i-J2QxQlDalV2AKkkgTCIUiznIoQhCdLz8zddvzVhkE 
 
 
 ### Get One Demo Request

@@ -42,7 +42,7 @@ export default () => {
             password
         }
 
-        const result = await fetch('https://taskify-123.herokuapp.com/api/users/login', {
+        const result = await fetch('https://lil-project-1.herokuapp.com/api/admin/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
