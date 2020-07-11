@@ -34,11 +34,15 @@ function App() {
     <>
       <UserContext.Provider value={{ user, login, logout }}>
         <Router>
-        <Nav />
+          <Nav />
           <Switch>
-          {!user.token && <Route path="/auth" component={Auth} exact />}
-          {user.token && <Route path="/demo" component={DemoRequest} exact />}
-          {user.token && <Route path="/contactus" component={ContactUs} exact />}
+            {!user.token && <Redirect from="/" to="/auth" exact />}
+            {!user.token && <Redirect from="/contactus" to="/auth" exact />}
+            {!user.token && <Redirect from="/demo" to="/auth" exact />}
+            {!user.token && <Route path="/auth" component={Auth} exact />}
+            {user.token && <Route path="/demo" component={DemoRequest} exact />}
+            {user.token && <Route path="/contactus" component={ContactUs} exact />}
+
           </Switch>
         </Router>
       </UserContext.Provider>
