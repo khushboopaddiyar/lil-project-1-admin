@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
-import { Avatar, Button, Container, CssBaseline, TextField, Typography } from '@material-ui/core'
+import React, { useContext, useState } from 'react'
+import { Avatar, Button, Container, CssBaseline, TextField, Typography, Snackbar, SnackbarContent } from '@material-ui/core'
 import { LockOutlined as LockOutlinedIcon } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -26,12 +26,17 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const Auth = () => {
+    const [isLoginDisabled, setIsLoginDisabled] = useState(false)
+    const [toastMessage, setToastMessage] = useState('')
+    const [isToastOpen, setIsToastOpen] = useState(false)
+
     const user = useContext(UserContext)
 
     const classes = useStyles()
 
     const handleLogin = async e => {
         e.preventDefault()
+        setIsLoginDisabled(true)
 
         const email = e.currentTarget.elements.email.value
         const password = e.currentTarget.elements.password.value
@@ -57,7 +62,9 @@ const Auth = () => {
         if (json.success === true) {
             user.login(json.data.user._id, json.data.token)
         } else {
-            alert('Invalid Email or Password!')
+            setToastMessage(json.message)
+            setIsToastOpen(true)
+            setIsLoginDisabled(false)
         }
     }
 
@@ -99,11 +106,18 @@ const Auth = () => {
                         variant="contained"
                         color="primary"
                         className={classes.submit}
+                        disabled={isLoginDisabled}
                     >
                         Sign In
                     </Button>
                 </form>
             </div>
+            <Snackbar open={isToastOpen} autoHideDuration={5000} onClose={() => {
+                setToastMessage('')
+                setIsToastOpen(false)
+            }}>
+                <SnackbarContent message={toastMessage} />
+            </Snackbar>
         </Container>
     )
 }

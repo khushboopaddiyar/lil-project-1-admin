@@ -43,8 +43,7 @@ const App = () => {
         <>
             <UserContext.Provider value={{ user, login, logout }}>
                 <Router>
-                    <Navbar />
-                    <main>
+                    <Navbar>
                         <Switch>
                             {/* Redirection Rules */}
                             {!user.token && <Redirect from="/" to="/auth" exact />}
@@ -62,7 +61,7 @@ const App = () => {
                             {/* Handle Un-matched route */}
                             <Redirect from="*" to="/" exact />
                         </Switch>
-                    </main>
+                    </Navbar>
                 </Router>
             </UserContext.Provider>
         </>
