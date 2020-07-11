@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Switch, Redirect, Route } from 'react-router-dom'
 
 import UserContext from './context/UserContext'
@@ -19,14 +19,25 @@ const App = () => {
             userId,
             token
         })
+        localStorage.setItem('user', JSON.stringify({ userId, token }))
     }
 
     const logout = () => {
+        localStorage.removeItem('user')
         setUser({
             userId: '',
             token: ''
         })
     }
+
+    useEffect(() => {
+        let user = localStorage.getItem('user')
+        if (user) {
+            user = JSON.parse(user)
+            if (user && user.userId && user.token)
+                login(user.userId, user.token)
+        }
+    }, [])
 
     return (
         <>
