@@ -25,17 +25,19 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-export default () => {
+const Auth = () => {
     const user = useContext(UserContext)
 
     const classes = useStyles()
 
-    // Submit Login Form handler
     const handleLogin = async e => {
         e.preventDefault()
 
         const email = e.currentTarget.elements.email.value
         const password = e.currentTarget.elements.password.value
+
+        if (!email || !password)
+            return alert('Email and Password is required!')
 
         const obj = {
             email,
@@ -49,6 +51,7 @@ export default () => {
             },
             body: JSON.stringify(obj)
         })
+
         const json = await result.json()
 
         if (json.success === true) {
@@ -104,3 +107,5 @@ export default () => {
         </Container>
     )
 }
+
+export default Auth
