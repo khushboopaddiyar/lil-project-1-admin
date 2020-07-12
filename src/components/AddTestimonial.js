@@ -4,6 +4,7 @@ import { Add, Close } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles'
 
 import UserContext from '../context/UserContext'
+import ToastContext from '../context/ToastContext'
 
 const useStyles = makeStyles(theme => ({
     appBar: {
@@ -31,6 +32,7 @@ const Transition = React.forwardRef((props, ref) => {
 
 const AddTestimonial = props => {
     const user = useContext(UserContext)
+    const toast = useContext(ToastContext)
 
     const classes = useStyles()
     const [isOpen, setIsOpen] = useState(false)
@@ -39,7 +41,14 @@ const AddTestimonial = props => {
     const handleClose = () => setIsOpen(false)
 
     const [selectedFile, setSelectedFile] = useState('')
-    const handleFileChange = e => setSelectedFile(e.target.files[0])
+    const handleFileChange = e => {
+        const file = e.target.files[0]
+        if (file && (file.name.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG)$/)) && file.size < 5 * 1024 * 1024) {
+            setSelectedFile(e.target.files[0])
+        } else {
+            toast.showToast('Only JPG, JPEG & PNG below 5Mb are supported!')
+        }
+    }
 
     const handleAddTestimonial = async e => {
         e.preventDefault()
@@ -60,9 +69,12 @@ const AddTestimonial = props => {
             })
                 .then(res => res.json())
                 .then(json => {
+                    toast.showToast(`Testimonial Added Successfully!`)
                     props.addTestimonial(json.data.testimonial)
                 })
                 .catch(err => console.log(err))
+        } else {
+            toast.showToast('Please Select an image!')
         }
     }
 

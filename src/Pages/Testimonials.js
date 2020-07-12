@@ -27,7 +27,7 @@ const Testimonials = () => {
                 if (json.success) {
                     toast.showToast(`Deleted Testimonial ${json.data.testimonial.name}`)
                     setTestimonials(testimonials.filter(t => t._id !== id))
-                    setDeletedTestimonials([...deleteTestimonial, json.data.testimonial])
+                    setDeletedTestimonials([...deletedTestimonials, json.data.testimonial])
                 }
             })
             .catch(err => console.log(err))
@@ -45,7 +45,7 @@ const Testimonials = () => {
                 if (json.success) {
                     toast.showToast(`Restored Testimonial ${json.data.testimonial.name}`)
                     setDeletedTestimonials(testimonials.filter(t => t._id !== id))
-                    setDeletedTestimonials([...deleteTestimonial, json.data.testimonial])
+                    setDeletedTestimonials([...deletedTestimonials, json.data.testimonial])
                 }
             })
             .catch(err => console.log(err))
@@ -99,7 +99,7 @@ const Testimonials = () => {
     }, [user.user.token, toast])
 
     return (
-        <Container>
+        <Container maxWidth="md">
             {isLoading &&
                 <Container maxWidth="sm">
                     <LinearProgress />
@@ -107,25 +107,21 @@ const Testimonials = () => {
             }
             {!isLoading && <>
                 <AddTestimonial addTestimonial={testimonial => setTestimonials(prev => [...prev, testimonial])} />
-                <Container maxWidth="md">
-                    <Paper>
-                        <Tabs
-                            variant="fullWidth"
-                            value={tab}
-                            onChange={handleTabChange}
-                            indicatorColor="secondary"
-                            textColor="secondary"
-                        >
-                            <Tab icon={<CheckOutlinedIcon />} label="Active" />
-                            <Tab icon={<DeleteIcon />} label="Trash" />
-                        </Tabs>
-                        <Divider />
-                        <Container>
-                            {tab === 0 && <TestimonialList deleted="false" testimonials={testimonials} remove={deleteTestimonial} />}
-                            {tab === 1 && <TestimonialList deleted="true" testimonials={deletedTestimonials} remove={restoreTestimonial} />}
-                        </Container>
-                    </Paper>
-                </Container>
+                <Paper>
+                    <Tabs
+                        variant="fullWidth"
+                        value={tab}
+                        onChange={handleTabChange}
+                        indicatorColor="secondary"
+                        textColor="secondary"
+                    >
+                        <Tab icon={<CheckOutlinedIcon />} label="Active" />
+                        <Tab icon={<DeleteIcon />} label="Trash" />
+                    </Tabs>
+                </Paper>
+                <Divider />
+                {tab === 0 && <TestimonialList deleted={false} testimonials={testimonials} remove={deleteTestimonial} />}
+                {tab === 1 && <TestimonialList deleted={true} testimonials={deletedTestimonials} remove={restoreTestimonial} />}
             </>}
         </Container>
     )
