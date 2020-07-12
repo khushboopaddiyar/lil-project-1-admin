@@ -28,4 +28,40 @@ GET https://lil-project-1.herokuapp.com/api/contactus/5f0704b2acc11e363b01251f
 Authorization: 
 
 
+### Get All Testimonials
+GET https://lil-project-1.herokuapp.com/api/testimonials
+
+
+### Get All Deleted Testimonials
+GET https://lil-project-1.herokuapp.com/api/testimonials?deleted=true
+Authorization: 
+
+
+### Get One Testimonial
+GET https://lil-project-1.herokuapp.com/api/testimonials/5f0aa2e2c9da121df8368fc2
+
+
+### Add Testimonial
+POST https://lil-project-1.herokuapp.com/api/testimonials
+Authorization: 
+Content-Type: multipart/form-data
+
+{
+    "name": "Test Name",
+    "email": "test@test.com",
+    "comment": "test comment",
+    "image": "jpg, jpeg or png less than 5 mb"
+}
+
+
+### Delete Testimonial
+DELETE https://lil-project-1.herokuapp.com/api/testimonials/5f0aa2e2c9da121df8368fc2
+Authorization: 
+
+
+### Restore Testimonial
+DELETE https://lil-project-1.herokuapp.com/api/testimonials/5f0aa2e2c9da121df8368fc2?delete=false
+Authorization: 
+
+
 ###
