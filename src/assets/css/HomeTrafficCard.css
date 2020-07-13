@@ -1,0 +1,32 @@
+/*! CSS Used from: Embedded */
+.MuiPaper-root{color:rgba(0, 0, 0, 0.87);transition:box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;background-color:#fff;}
+.MuiPaper-rounded{border-radius:4px;}
+.MuiPaper-elevation1{box-shadow:0 0 14px 0 rgba(53,64,82,.05);}
+/*! CSS Used from: Embedded */
+.MuiTypography-root{margin:0;}
+.MuiTypography-h6{font-size:1.0625rem;font-family:Nunito,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";font-weight:600;line-height:1.2;}
+.MuiTypography-displayBlock{display:block;}
+/*! CSS Used from: Embedded */
+*,*::before,*::after{box-sizing:inherit;}
+/*! CSS Used from: Embedded */
+.MuiCard-root{overflow:hidden;}
+/*! CSS Used from: Embedded */
+.MuiCardHeader-root{display:flex;padding:16px;align-items:center;}
+.MuiCardHeader-content{flex:1 1 auto;}
+/*! CSS Used from: Embedded */
+.MuiTableRow-root{color:inherit;display:table-row;outline:0;vertical-align:middle;}
+/*! CSS Used from: Embedded */
+.MuiTableCell-root{display:table-cell;padding:16px;font-size:0.875rem;text-align:left;font-family:Nunito,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";font-weight:400;line-height:1.43;border-bottom:1px solid     rgba(224, 224, 224, 1);vertical-align:inherit;}
+.MuiTableCell-head{color:rgba(0, 0, 0, 0.87);font-weight:600;line-height:1.5rem;}
+.MuiTableCell-body{color:rgba(0, 0, 0, 0.87);}
+.MuiTableCell-alignRight{text-align:right;flex-direction:row-reverse;}
+/*! CSS Used from: Embedded */
+.MuiTable-root{width:100%;display:table;border-spacing:0;border-collapse:collapse;}
+/*! CSS Used from: Embedded */
+.MuiTableHead-root{display:table-header-group;}
+/*! CSS Used from: Embedded */
+.MuiTableBody-root{display:table-row-group;}
+/*! CSS Used from: Embedded */
+.kyRIee .MuiPaper-root .MuiPaper-root{box-shadow:none;}
+.jbgEdl{margin-bottom:12px;}
+.doivoh{overflow-y:auto;max-width:calc(100vw - 48px);}

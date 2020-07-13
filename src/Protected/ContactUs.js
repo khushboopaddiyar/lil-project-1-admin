@@ -87,7 +87,6 @@ function ContactUs() {
                             <StyledTableCell component="th" scope="row">
                                 {row.email}
                             </StyledTableCell>
-
                         </StyledTableRow>
                     ))}
                 </TableBody>
