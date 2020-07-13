@@ -10,6 +10,7 @@ import Home from './Pages/Home'
 import ContactUs from './Protected/ContactUs'
 import DemoRequest from './Protected/DemoRequest'
 import Testimonials from './Pages/Testimonials'
+import Courses from './Pages/Courses'
 
 const App = () => {
     const [user, setUser] = useState({
@@ -66,6 +67,7 @@ const App = () => {
                                 {!user.token && <Redirect from="/contactus" to="/auth" exact />}
                                 {!user.token && <Redirect from="/demo" to="/auth" exact />}
                                 {!user.token && <Redirect from="/testimonial" to="/auth" exact />}
+                                {!user.token && <Redirect from="/courses" to="/auth" exact />}
                                 {user.token && <Redirect from="/auth" to="/home" exact />}
 
                                 {/* Routing */}
@@ -74,6 +76,7 @@ const App = () => {
                                 {user.token && <Route path="/demo" component={DemoRequest} exact />}
                                 {user.token && <Route path="/contactus" component={ContactUs} exact />}
                                 {user.token && <Route path="/testimonials" component={Testimonials} exact />}
+                                {user.token && <Route path="/courses" component={Courses} exact />}
 
                                 {/* Handle Un-matched route */}
                                 <Redirect from="*" to="/" exact />
