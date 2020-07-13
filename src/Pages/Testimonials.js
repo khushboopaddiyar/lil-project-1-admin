@@ -25,9 +25,9 @@ const Testimonials = () => {
             .then(res => res.json())
             .then(json => {
                 if (json.success) {
-                    toast.showToast(`Deleted Testimonial ${json.data.testimonial.name}`)
                     setTestimonials(testimonials.filter(t => t._id !== id))
                     setDeletedTestimonials([...deletedTestimonials, json.data.testimonial])
+                    toast.showToast(`Deleted Testimonial ${json.data.testimonial.name}`)
                 }
             })
             .catch(err => console.log(err))
@@ -43,9 +43,9 @@ const Testimonials = () => {
             .then(res => res.json())
             .then(json => {
                 if (json.success) {
+                    setDeletedTestimonials(deletedTestimonials.filter(t => t._id !== id))
+                    setTestimonials([...testimonials, json.data.testimonial])
                     toast.showToast(`Restored Testimonial ${json.data.testimonial.name}`)
-                    setDeletedTestimonials(testimonials.filter(t => t._id !== id))
-                    setDeletedTestimonials([...deletedTestimonials, json.data.testimonial])
                 }
             })
             .catch(err => console.log(err))

@@ -69,6 +69,7 @@ const App = () => {
                                 {!user.token && <Redirect from="/testimonial" to="/auth" exact />}
                                 {!user.token && <Redirect from="/courses" to="/auth" exact />}
                                 {user.token && <Redirect from="/auth" to="/home" exact />}
+                                {user.token && <Redirect from="/" to="/home" exact />}
 
                                 {/* Routing */}
                                 {!user.token && <Route path="/auth" component={Auth} exact />}
