@@ -1,53 +1,73 @@
-import React from 'react'
+import React from 'react';
+import {
+    BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
+} from 'recharts';
+import { Paper } from '@material-ui/core';
+import Card from '@material-ui/core/Card';
+import Typography from '@material-ui/core/Typography';
 
-export default function HomeTrafficSourceCard(props) {
-    const { Tdata } = props.dataToSend;
 
-    Tdata.map((data, index) => () => {
-        console.log(data)
-    })
+const data = [
+    {
+        name: 'jan', mobile: 10, desktop: 10, amt: 80,
+    },
+    {
+        name: 'feb', mobile: 10, desktop: 10, amt: 80,
+    },
+    {
+        name: 'mar', mobile: 10, desktop: 10, amt: 80,
+    },
+    {
+        name: 'jun', mobile: 10, desktop: 10, amt: 80,
+    },
+    {
+        name: 'jul', mobile: 10, desktop: 10, amt: 80,
+    },
+    {
+        name: 'aug', mobile: 10, desktop: 10, amt: 80,
+    },
+    {
+        name: 'sep', mobile: 10, desktop: 10, amt: 80,
+    },
+    {
+        name: 'oct', mobile: 10, desktop: 10, amt: 80,
+    },
+    {
+        name: 'nov', mobile: 10, desktop: 10, amt: 80,
+    },
+    {
+        name: 'dec', mobile: 10, desktop: 10, amt: 80,
+    },
 
+];
+
+export default function HomeTrafficSourceCard() {
     return (
-        <div class="MuiGrid-root MuiGrid-item">
-            <div class="MuiPaper-root MuiCard-root sc-fzokvW jbgEdl MuiPaper-elevation1 MuiPaper-rounded" mb="3">
-                <div class="MuiCardHeader-root">
-                    <div class="MuiCardHeader-content">
-                        <span class="MuiTypography-root MuiCardHeader-title MuiTypography-h6 MuiTypography-displayBlock">Traffic sources</span>
-                    </div>
-                </div>
-                <div class="MuiPaper-root MuiPaper-elevation1 MuiPaper-rounded">
-                    <div class="sc-fzqLLg doivoh">
-                        <table class="MuiTable-root">
-                            <thead class="MuiTableHead-root">
-                                <tr class="MuiTableRow-root MuiTableRow-head">
-                                    <th class="MuiTableCell-root MuiTableCell-head" scope="col">Source</th>
-                                    <th class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignRight" scope="col">Users</th>
-                                    <th class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignRight" scope="col">Sessions</th>
-                                    <th class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignRight" scope="col">Bounce Rate</th>
-                                    <th class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignRight" scope="col">Avg. Session Duration</th>
-                                </tr>
-                            </thead>
-                            <tbody class="MuiTableBody-root">
-                                {/* {Tdata.map((data, index) => { */}
-                                {/* return ( */}
-                                <tr class="MuiTableRow-root">
-                                    <th class="MuiTableCell-root MuiTableCell-body" role="cell" scope="row">""</th>
-                                    <td class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignRight">data.v2</td>
-                                    <td class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignRight">data.v3</td>
-                                    <td class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignRight">
-                                        <div class="MuiChip-root sc-fzqzlV dKyNUC" rgbcolor="#4caf50">
-                                            <span class="MuiChip-label">data.v4 %</span>
-                                        </div>
-                                    </td>
-                                    <td class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignRight">data.v5</td>
-                                </tr>
-                                {/* ); */}
-                                {/* })} */}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+        <Paper>
+            <div>
+                <Card style={{ padding: '10px', height: '100%' }}>
+                    <Typography component="h5" variant="h5">
+                        Mobile / Desktop
+                        </Typography>
+                    <br />
+                    <BarChart
+                        width={850}
+                        height={300}
+                        data={data}
+                        margin={{
+                            top: 5, right: 30, left: 20, bottom: 5,
+                        }}
+                    >
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="name" />
+                        <YAxis />
+                        <Tooltip />
+                        <Legend />
+                        <Bar dataKey="mobile" fill="#8884d8" />
+                        <Bar dataKey="desktop" fill="#82ca9d" />
+                    </BarChart>
+                </Card>
             </div>
-        </div>
+        </Paper>
     )
 }

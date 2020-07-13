@@ -91,8 +91,6 @@ function ContactUs() {
                             <StyledTableCell component="th" scope="row">
                                 {row.email}
                             </StyledTableCell>
-<<<<<<< HEAD
-=======
                             <StyledTableCell align="right">{row.name}</StyledTableCell>
                             <StyledTableCell align="right">{row.createdAt}</StyledTableCell>
                             <StyledTableCell align="right">{row.subject}</StyledTableCell>
@@ -100,7 +98,6 @@ function ContactUs() {
    
 
 
->>>>>>> cf4cb29af49b33dc4f2bed21e3f2ef3061be4a6d
                         </StyledTableRow>
                     ))}
                 </TableBody>
