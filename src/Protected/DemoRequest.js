@@ -8,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+//import InputAdornment from '@material-ui/core/InputAdornment';
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -64,6 +65,7 @@ function DemoRequest() {
 
 
     return (
+
         <TableContainer component={Paper} >
             <Table className={classes.table} aria-label="customized table">
                 <TableHead>
@@ -82,7 +84,7 @@ function DemoRequest() {
                                 {row.email}
                             </StyledTableCell>
 
-                            <StyledTableCell align="right">{row.createdAt}</StyledTableCell>
+                            <StyledTableCell align="right">{(row.createdAt)}</StyledTableCell>
 
                             <StyledTableCell align="right">{row.message}</StyledTableCell>
 
