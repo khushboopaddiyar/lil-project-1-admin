@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Home() {
     const classes = useStyles();
 
+
     return (
         <div className={classes.root}>
             <Grid container spacing={3}>
@@ -53,7 +54,7 @@ export default function Home() {
                     </Grid>
                 </Grid>
                 <Grid item xs={12} sm={12} lg={7}>
-                    <HomeTrafficSourceCard dataToSend={array} />
+                    <HomeTrafficSourceCard />
                 </Grid>
             </Grid>
         </div>
