@@ -80,4 +80,40 @@ DELETE https://lil-project-1.herokuapp.com/api/courses/5f0bf22f86b6251e54d78083?
 Authorization: 
 
 
+### Get all About Us
+GET https://lil-project-1.herokuapp.com/api/about?all=true
+Authorization: 
+
+
+### Add About Us
+POST https://lil-project-1.herokuapp.com/api/about
+Authorization: 
+Content-Type: application/json
+
+{
+    "whatAreWe": "Developers at LIL",
+    "whatWereWe": "The Techno Students",
+    "whatWeDo": "Eat Sleep Code Repeat!"
+}
+
+
+### Get all Contact Details
+GET https://lil-project-1.herokuapp.com/api/contactdetails?all=true
+Authorization: 
+
+
+### Add Contact Details
+POST https://lil-project-1.herokuapp.com/api/contactdetails
+Authorization: 
+Content-Type: application/json
+
+{
+    "address": "IT Park, Udaipur (Rajasthan), INDIA",
+    "email": "learnindialearn@securelearning.com",
+    "contactNumber": "9876543210",
+    "linkedin": "https://linkedin.com/securelearning",
+    "facebook": "https://facebook.com/securelearning"
+}
+
+
 ###
