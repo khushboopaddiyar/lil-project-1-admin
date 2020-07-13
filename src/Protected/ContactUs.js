@@ -78,6 +78,10 @@ function ContactUs() {
                 <TableHead>
                     <TableRow>
                         <StyledTableCell>Email</StyledTableCell>
+                        <StyledTableCell align="right">Name</StyledTableCell>
+                        <StyledTableCell align="right">Created At&nbsp;</StyledTableCell>
+                        <StyledTableCell align="right">Subject&nbsp;</StyledTableCell>
+                        <StyledTableCell align="right">Message&nbsp;</StyledTableCell>
 
                     </TableRow>
                 </TableHead>
@@ -87,6 +91,16 @@ function ContactUs() {
                             <StyledTableCell component="th" scope="row">
                                 {row.email}
                             </StyledTableCell>
+<<<<<<< HEAD
+=======
+                            <StyledTableCell align="right">{row.name}</StyledTableCell>
+                            <StyledTableCell align="right">{row.createdAt}</StyledTableCell>
+                            <StyledTableCell align="right">{row.subject}</StyledTableCell>
+                            <StyledTableCell align="right">{row.message}</StyledTableCell>
+   
+
+
+>>>>>>> cf4cb29af49b33dc4f2bed21e3f2ef3061be4a6d
                         </StyledTableRow>
                     ))}
                 </TableBody>

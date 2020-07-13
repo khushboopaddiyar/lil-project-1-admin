@@ -13,19 +13,107 @@ GET https://lil-project-1.herokuapp.com/api/demorequests
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjA4MDcyZTBjZDJhNzNhMWM0OTY5MTYiLCJpYXQiOjE1OTQzNjI1Nzl9.i-J2QxQlDalV2AKkkgTCIUiznIoQhCdLz8zddvzVhkE 
 
 
-### Get One Demo Request
-GET https://lil-project-1.herokuapp.com/api/demorequests/5f07020c1ec8572fa8585f2c
-Authorization: 
-
-
 ### Get All Contact Us Details
 GET https://lil-project-1.herokuapp.com/api/contactus
 Authorization: 
 
 
-### Get One Contact Us Detail
-GET https://lil-project-1.herokuapp.com/api/contactus/5f0704b2acc11e363b01251f
+### Get All Testimonials
+GET https://lil-project-1.herokuapp.com/api/testimonials
+
+
+### Get All Deleted Testimonials
+GET https://lil-project-1.herokuapp.com/api/testimonials?deleted=true
 Authorization: 
+
+
+### Add Testimonial
+POST https://lil-project-1.herokuapp.com/api/testimonials
+Authorization: 
+Content-Type: multipart/form-data
+
+{
+    "name": "Test Name",
+    "email": "test@test.com",
+    "comment": "test comment",
+    "image": "jpg, jpeg or png less than 5 mb"
+}
+
+
+### Delete Testimonial
+DELETE https://lil-project-1.herokuapp.com/api/testimonials/5f0aa2e2c9da121df8368fc2
+Authorization: 
+
+
+### Restore Testimonial
+DELETE https://lil-project-1.herokuapp.com/api/testimonials/5f0aa2e2c9da121df8368fc2?delete=false
+Authorization: 
+
+
+### Get All Courses
+GET https://lil-project-1.herokuapp.com/api/courses
+
+
+### Get All Deleted Courses
+GET https://lil-project-1.herokuapp.com/api/courses?deleted=true
+Authorization: 
+
+
+### Add Course
+POST https://lil-project-1.herokuapp.com/api/courses
+Authorization: 
+Content-Type: application/json
+
+{
+    "title": "Marhmello Come & Go",
+    "videoUrl": "https://www.youtube.com/watch?v=Dxm3cHrKcbA"
+}
+
+
+### Delete Course
+DELETE https://lil-project-1.herokuapp.com/api/courses/5f0bf22f86b6251e54d78083
+Authorization: 
+
+
+### Restore Course
+DELETE https://lil-project-1.herokuapp.com/api/courses/5f0bf22f86b6251e54d78083?delete=false
+Authorization: 
+
+
+### Get all About Us
+GET https://lil-project-1.herokuapp.com/api/about?all=true
+Authorization: 
+
+
+### Add About Us
+POST https://lil-project-1.herokuapp.com/api/about
+Authorization: 
+Content-Type: application/json
+
+{
+    "whatAreWe": "Developers at LIL",
+    "whatWereWe": "The Techno Students",
+    "whatWeDo": "Eat Sleep Code Repeat!"
+}
+
+
+### Get all Contact Details
+GET https://lil-project-1.herokuapp.com/api/contactdetails?all=true
+Authorization: 
+
+
+### Add Contact Details
+POST https://lil-project-1.herokuapp.com/api/contactdetails
+Authorization: 
+Content-Type: application/json
+
+{
+    "address": "IT Park, Udaipur (Rajasthan), INDIA",
+    "email": "learnindialearn@securelearning.com",
+    "contactNumber": "9876543210",
+    "linkedin": "https://linkedin.com/securelearning",
+    "facebook": "https://facebook.com/securelearning"
+}
 
 
 ###

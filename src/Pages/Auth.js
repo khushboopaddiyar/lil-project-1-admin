@@ -1,9 +1,10 @@
 import React, { useContext, useState } from 'react'
-import { Avatar, Button, Container, CssBaseline, TextField, Typography, Snackbar, SnackbarContent } from '@material-ui/core'
+import { Avatar, Button, Container, CssBaseline, TextField, Typography } from '@material-ui/core'
 import { LockOutlined as LockOutlinedIcon } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles'
 
 import UserContext from '../context/UserContext'
+import ToastContext from '../context/ToastContext'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -27,10 +28,9 @@ const useStyles = makeStyles((theme) => ({
 
 const Auth = () => {
     const [isLoginDisabled, setIsLoginDisabled] = useState(false)
-    const [toastMessage, setToastMessage] = useState('')
-    const [isToastOpen, setIsToastOpen] = useState(false)
 
     const user = useContext(UserContext)
+    const toast = useContext(ToastContext)
 
     const classes = useStyles()
 
@@ -62,8 +62,7 @@ const Auth = () => {
         if (json.success === true) {
             user.login(json.data.user._id, json.data.token)
         } else {
-            setToastMessage(json.message)
-            setIsToastOpen(true)
+            toast.showToast(json.message)
             setIsLoginDisabled(false)
         }
     }
@@ -112,12 +111,6 @@ const Auth = () => {
                     </Button>
                 </form>
             </div>
-            <Snackbar open={isToastOpen} autoHideDuration={5000} onClose={() => {
-                setToastMessage('')
-                setIsToastOpen(false)
-            }}>
-                <SnackbarContent message={toastMessage} />
-            </Snackbar>
         </Container>
     )
 }

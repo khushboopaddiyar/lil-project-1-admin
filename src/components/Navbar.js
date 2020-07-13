@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 import clsx from 'clsx'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import { Drawer, CssBaseline, AppBar, Toolbar, List, Typography, Divider, IconButton, ListItem, ListItemIcon, ListItemText, Dialog, DialogActions, DialogTitle, Button } from '@material-ui/core'
-import { Menu as MenuIcon, ChevronLeft as ChevronLeftIcon, ChevronRight as ChevronRightIcon, Mail as MailIcon, PowerSettingsNew as PowerIcon, Home as HomeIcon, Notifications as NotificationsIcon } from '@material-ui/icons'
+import { Menu as MenuIcon, ChevronLeft as ChevronLeftIcon, ChevronRight as ChevronRightIcon, Mail as MailIcon, PowerSettingsNew as PowerIcon, Home as HomeIcon, Notifications as NotificationsIcon, RateReview as RateReviewIcon, AssignmentTurnedIn as AssignmentIcon } from '@material-ui/icons'
 
 import UserContext from '../context/UserContext'
 
@@ -124,7 +124,6 @@ const Navbar = props => {
                 }
                 {user.user.token &&
                     <>
-                        <Divider />
                         <List>
                             <ListItem component={NavLink} to="/home" onClick={handleDrawerClose}>
                                 <ListItemIcon>
@@ -143,6 +142,18 @@ const Navbar = props => {
                                     <MailIcon />
                                 </ListItemIcon>
                                 <ListItemText primary='Contact Us' />
+                            </ListItem>
+                            <ListItem component={NavLink} to="/testimonials" onClick={handleDrawerClose}>
+                                <ListItemIcon>
+                                    <RateReviewIcon />
+                                </ListItemIcon>
+                                <ListItemText primary='Testimonials' />
+                            </ListItem>
+                            <ListItem component={NavLink} to="/courses" onClick={handleDrawerClose}>
+                                <ListItemIcon>
+                                    <AssignmentIcon />
+                                </ListItemIcon>
+                                <ListItemText primary='Courses' />
                             </ListItem>
                         </List>
                         <Divider />
