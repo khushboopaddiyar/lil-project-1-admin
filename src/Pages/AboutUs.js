@@ -1,14 +1,23 @@
 import React, { useState, useContext, useEffect } from 'react'
-import { Container, LinearProgress, TextField, Typography, Button, Tab, Tabs, Paper, Card, CardContent } from '@material-ui/core'
+import { Container, LinearProgress, TextField, Typography, Button, Tab, Tabs, Paper, Card, CardContent, Snackbar, SnackbarContent } from '@material-ui/core'
 import { Edit as EditIcon, Cancel as CancelIcon, Done as DoneIcon } from '@material-ui/icons'
 import moment from 'moment'
 
 import UserContext from '../context/UserContext'
-import ToastContext from '../context/ToastContext'
 
 const About = () => {
     const user = useContext(UserContext)
-    const toast = useContext(ToastContext)
+
+    const [isToastOpen, setIsToastOpen] = useState(false)
+    const [snackMessage, setToastMessage] = useState('')
+    const showToast = message => {
+        setIsToastOpen(true)
+        setToastMessage(message)
+    }
+    const handleToastClose = () => {
+        setIsToastOpen(false)
+        setToastMessage('')
+    }
 
     const [isLoading, setIsLoading] = useState(true)
 
@@ -51,7 +60,7 @@ const About = () => {
                 if (json.success) {
                     setAllAboutUs([json.data.about, ...allAboutUs])
                     setAboutUs(json.data.about)
-                    toast.showToast('About Us Details Updated Successfully!')
+                    showToast('About Us Details Updated Successfully!')
                 }
             }).catch(err => console.log(err))
     }
@@ -249,6 +258,9 @@ const About = () => {
                     }
                 </Container>
             }
+            <Snackbar open={isToastOpen} autoHideDuration={5000} onClose={handleToastClose}>
+                <SnackbarContent message={snackMessage} />
+            </Snackbar>
         </>
     )
 }

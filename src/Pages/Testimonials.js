@@ -1,15 +1,24 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { Container, Paper, Tabs, Tab, Divider, LinearProgress } from '@material-ui/core'
+import { Container, Paper, Tabs, Tab, Divider, LinearProgress, Snackbar, SnackbarContent } from '@material-ui/core'
 import { DeleteOutlined as DeleteIcon, CheckOutlined as CheckOutlinedIcon } from '@material-ui/icons'
 
 import UserContext from '../context/UserContext'
-import ToastContext from '../context/ToastContext'
 import AddTestimonial from '../components/AddTestimonial'
 import TestimonialList from '../components/TestimonialList'
 
 const Testimonials = () => {
     const user = useContext(UserContext)
-    const toast = useContext(ToastContext)
+
+    const [isToastOpen, setIsToastOpen] = useState(false)
+    const [snackMessage, setToastMessage] = useState('')
+    const showToast = message => {
+        setIsToastOpen(true)
+        setToastMessage(message)
+    }
+    const handleToastClose = () => {
+        setIsToastOpen(false)
+        setToastMessage('')
+    }
 
     const [isLoading, setIsLoading] = useState(true)
     const [testimonials, setTestimonials] = useState([])
@@ -27,7 +36,7 @@ const Testimonials = () => {
                 if (json.success) {
                     setTestimonials(testimonials.filter(t => t._id !== id))
                     setDeletedTestimonials([...deletedTestimonials, json.data.testimonial])
-                    toast.showToast(`Deleted Testimonial ${json.data.testimonial.name}`)
+                    showToast(`Deleted Testimonial ${json.data.testimonial.name}`)
                 }
             })
             .catch(err => console.log(err))
@@ -45,7 +54,7 @@ const Testimonials = () => {
                 if (json.success) {
                     setDeletedTestimonials(deletedTestimonials.filter(t => t._id !== id))
                     setTestimonials([...testimonials, json.data.testimonial])
-                    toast.showToast(`Restored Testimonial ${json.data.testimonial.name}`)
+                    showToast(`Restored Testimonial ${json.data.testimonial.name}`)
                 }
             })
             .catch(err => console.log(err))
@@ -94,36 +103,41 @@ const Testimonials = () => {
             setIsLoading(false)
         }).catch(err => {
             console.log(err)
-            toast.showToast('Something Went Wrong!')
+            showToast('Something Went Wrong!')
         })
-    }, [user.user.token, toast])
+    }, [user.user.token])
 
     return (
-        <Container maxWidth="md">
-            {isLoading &&
-                <Container maxWidth="sm">
-                    <LinearProgress />
-                </Container>
-            }
-            {!isLoading && <>
-                <AddTestimonial addTestimonial={testimonial => setTestimonials(prev => [...prev, testimonial])} />
-                <Paper>
-                    <Tabs
-                        variant="fullWidth"
-                        value={tab}
-                        onChange={handleTabChange}
-                        indicatorColor="secondary"
-                        textColor="secondary"
-                    >
-                        <Tab icon={<CheckOutlinedIcon />} label="Active" />
-                        <Tab icon={<DeleteIcon />} label="Trash" />
-                    </Tabs>
-                </Paper>
-                <Divider />
-                {tab === 0 && <TestimonialList deleted={false} testimonials={testimonials} remove={deleteTestimonial} />}
-                {tab === 1 && <TestimonialList deleted={true} testimonials={deletedTestimonials} remove={restoreTestimonial} />}
-            </>}
-        </Container>
+        <>
+            <Container maxWidth="md">
+                {isLoading &&
+                    <Container maxWidth="sm">
+                        <LinearProgress />
+                    </Container>
+                }
+                {!isLoading && <>
+                    <AddTestimonial addTestimonial={testimonial => setTestimonials(prev => [...prev, testimonial])} />
+                    <Paper>
+                        <Tabs
+                            variant="fullWidth"
+                            value={tab}
+                            onChange={handleTabChange}
+                            indicatorColor="secondary"
+                            textColor="secondary"
+                        >
+                            <Tab icon={<CheckOutlinedIcon />} label="Active" />
+                            <Tab icon={<DeleteIcon />} label="Trash" />
+                        </Tabs>
+                    </Paper>
+                    <Divider />
+                    {tab === 0 && <TestimonialList deleted={false} testimonials={testimonials} remove={deleteTestimonial} />}
+                    {tab === 1 && <TestimonialList deleted={true} testimonials={deletedTestimonials} remove={restoreTestimonial} />}
+                </>}
+            </Container>
+            <Snackbar open={isToastOpen} autoHideDuration={5000} onClose={handleToastClose}>
+                <SnackbarContent message={snackMessage} />
+            </Snackbar>
+        </>
     )
 }
 

@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react'
-import axios from 'axios'
 
 import UserContext from '../context/UserContext'
 
@@ -15,20 +14,17 @@ const TestFileUpload = () => {
         if (selectedFile !== '') {
             const formData = new FormData()
             formData.append('image', selectedFile, `${selectedFile.lastModified}-${selectedFile.name}`)
-            formData.append('name', e.currentTarget.elements.name.value)
-            formData.append('email', e.currentTarget.elements.email.value)
-			formData.append('comment', e.currentTarget.elements.comment.value)
+            formData.append('label', e.currentTarget.elements.label.value)
             try {
-                const result = await axios({
+                const result = await fetch('https://lil-project-1.herokuapp.com/api/gallery', {
                     method: 'POST',
-                    url: 'https://lil-project-1.herokuapp.com/api/testimonials',
-                    data: formData,
                     headers: {
-                        'Content-Type': 'multipart/form-data',
                         Authorization: user.user.token
-                    }
+                    },
+                    body: formData
                 })
-                console.log(result)
+                const json = await result.json()
+                console.log(json)
             } catch (err) {
                 console.log(err)
             }
@@ -37,9 +33,7 @@ const TestFileUpload = () => {
     return (
         <>
             <form onSubmit={handleUpload}>
-                <input type="text" name="name" required />
-                <input type="email" name="email" required />
-				<input type="text" name="comment" required />
+                <input type="text" name="label" required />
                 <input type="file" onChange={handleFileChange} required />
                 <button type="submit">Upload</button>
             </form>
