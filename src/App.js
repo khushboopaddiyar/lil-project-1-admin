@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Switch, Redirect, Route } from 'react-router-dom'
-import { Snackbar, SnackbarContent } from '@material-ui/core'
 
 import UserContext from './context/UserContext'
-import ToastContext from './context/ToastContext'
 import Auth from './Pages/Auth'
 import Navbar from './components/Navbar'
 import Home from './Pages/Home'
@@ -13,6 +11,7 @@ import Testimonials from './Pages/Testimonials'
 import Courses from './Pages/Courses'
 import AboutUs from './Pages/AboutUs'
 import ContactDetails from './Pages/ContactDetails'
+import Gallery from './Pages/Gallery'
 
 const App = () => {
     const [user, setUser] = useState({
@@ -36,17 +35,6 @@ const App = () => {
         })
     }
 
-    const [isToastOpen, setIsToastOpen] = useState(false)
-    const [snackMessage, setToastMessage] = useState('')
-    const handleToastOpen = message => {
-        setIsToastOpen(true)
-        setToastMessage(message)
-    }
-    const handleToastClose = () => {
-        setIsToastOpen(false)
-        setToastMessage('')
-    }
-
     useEffect(() => {
         let user = localStorage.getItem('user')
         if (user) {
@@ -59,41 +47,38 @@ const App = () => {
     return (
         <>
             <UserContext.Provider value={{ user, login, logout }}>
-                <ToastContext.Provider value={{ showToast: handleToastOpen }}>
-                    <Router>
-                        <Navbar>
-                            <Switch>
-                                {/* Redirection Rules */}
-                                {!user.token && <Redirect from="/" to="/auth" exact />}
-                                {!user.token && <Redirect from="/home" to="/auth" exact />}
-                                {!user.token && <Redirect from="/contactus" to="/auth" exact />}
-                                {!user.token && <Redirect from="/demo" to="/auth" exact />}
-                                {!user.token && <Redirect from="/testimonial" to="/auth" exact />}
-                                {!user.token && <Redirect from="/courses" to="/auth" exact />}
-                                {!user.token && <Redirect from="/aboutus" to="/auth" exact />}
-                                {!user.token && <Redirect from="/contactdetails" to="/auth" exact />}
-                                {user.token && <Redirect from="/auth" to="/home" exact />}
-                                {user.token && <Redirect from="/" to="/home" exact />}
+                <Router>
+                    <Navbar>
+                        <Switch>
+                            {/* Redirection Rules */}
+                            {!user.token && <Redirect from="/" to="/auth" exact />}
+                            {!user.token && <Redirect from="/home" to="/auth" exact />}
+                            {!user.token && <Redirect from="/contactus" to="/auth" exact />}
+                            {!user.token && <Redirect from="/demo" to="/auth" exact />}
+                            {!user.token && <Redirect from="/testimonial" to="/auth" exact />}
+                            {!user.token && <Redirect from="/courses" to="/auth" exact />}
+                            {!user.token && <Redirect from="/aboutus" to="/auth" exact />}
+                            {!user.token && <Redirect from="/contactdetails" to="/auth" exact />}
+                            {!user.token && <Redirect from="/gallery" to="/auth" exact />}
+                            {user.token && <Redirect from="/auth" to="/home" exact />}
+                            {user.token && <Redirect from="/" to="/home" exact />}
 
-                                {/* Routing */}
-                                {!user.token && <Route path="/auth" component={Auth} exact />}
-                                {user.token && <Route path="/home" component={Home} exact />}
-                                {user.token && <Route path="/demo" component={DemoRequest} exact />}
-                                {user.token && <Route path="/contactus" component={ContactUs} exact />}
-                                {user.token && <Route path="/testimonials" component={Testimonials} exact />}
-                                {user.token && <Route path="/courses" component={Courses} exact />}
-                                {user.token && <Route path="/aboutus" component={AboutUs} exact />}
-                                {user.token && <Route path="/contactdetails" component={ContactDetails} exact />}
+                            {/* Routing */}
+                            {!user.token && <Route path="/auth" component={Auth} exact />}
+                            {user.token && <Route path="/home" component={Home} exact />}
+                            {user.token && <Route path="/demo" component={DemoRequest} exact />}
+                            {user.token && <Route path="/contactus" component={ContactUs} exact />}
+                            {user.token && <Route path="/testimonials" component={Testimonials} exact />}
+                            {user.token && <Route path="/courses" component={Courses} exact />}
+                            {user.token && <Route path="/aboutus" component={AboutUs} exact />}
+                            {user.token && <Route path="/contactdetails" component={ContactDetails} exact />}
+                            {user.token && <Route path="/gallery" component={Gallery} exact />}
 
-                                {/* Handle Un-matched route */}
-                                <Redirect from="*" to="/" exact />
-                            </Switch>
-                        </Navbar>
-                    </Router>
-                    <Snackbar open={isToastOpen} autoHideDuration={5000} onClose={handleToastClose}>
-                        <SnackbarContent message={snackMessage} />
-                    </Snackbar>
-                </ToastContext.Provider>
+                            {/* Handle Un-matched route */}
+                            <Redirect from="*" to="/" exact />
+                        </Switch>
+                    </Navbar>
+                </Router>
             </UserContext.Provider>
         </>
     )

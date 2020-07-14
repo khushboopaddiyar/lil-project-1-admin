@@ -1,10 +1,9 @@
 import React, { useState, useContext } from 'react'
-import { Fab, Button, Dialog, AppBar, Toolbar, IconButton, Typography, Slide, TextField, Container } from '@material-ui/core'
+import { Fab, Button, Dialog, AppBar, Toolbar, IconButton, Typography, Slide, TextField, Container, Snackbar, SnackbarContent } from '@material-ui/core'
 import { Add, Close } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles'
 
 import UserContext from '../context/UserContext'
-import ToastContext from '../context/ToastContext'
 
 const useStyles = makeStyles(theme => ({
     appBar: {
@@ -32,7 +31,17 @@ const Transition = React.forwardRef((props, ref) => {
 
 const AddTestimonial = props => {
     const user = useContext(UserContext)
-    const toast = useContext(ToastContext)
+
+    const [isToastOpen, setIsToastOpen] = useState(false)
+    const [snackMessage, setToastMessage] = useState('')
+    const showToast = message => {
+        setIsToastOpen(true)
+        setToastMessage(message)
+    }
+    const handleToastClose = () => {
+        setIsToastOpen(false)
+        setToastMessage('')
+    }
 
     const classes = useStyles()
     const [isOpen, setIsOpen] = useState(false)
@@ -46,7 +55,7 @@ const AddTestimonial = props => {
         if (file && (file.name.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG)$/)) && file.size < 5 * 1024 * 1024) {
             setSelectedFile(e.target.files[0])
         } else {
-            toast.showToast('Only JPG, JPEG & PNG below 5Mb are supported!')
+            showToast('Only JPG, JPEG & PNG below 5Mb are supported!')
         }
     }
 
@@ -69,12 +78,12 @@ const AddTestimonial = props => {
             })
                 .then(res => res.json())
                 .then(json => {
-                    toast.showToast(`Testimonial Added Successfully!`)
+                    showToast(`Testimonial Added Successfully!`)
                     props.addTestimonial(json.data.testimonial)
                 })
                 .catch(err => console.log(err))
         } else {
-            toast.showToast('Please Select an image!')
+            showToast('Please Select an image!')
         }
     }
 
@@ -139,6 +148,9 @@ const AddTestimonial = props => {
                     </Container>
                 </form>
             </Dialog>
+            <Snackbar open={isToastOpen} autoHideDuration={5000} onClose={handleToastClose}>
+                <SnackbarContent message={snackMessage} />
+            </Snackbar>
         </div>
     )
 }

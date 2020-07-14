@@ -116,4 +116,34 @@ Content-Type: application/json
 }
 
 
+### Get All Gallery Images
+GET https://lil-project-1.herokuapp.com/api/gallery
+
+
+### Get All Deleted Gallery Images
+GET https://lil-project-1.herokuapp.com/api/gallery?deleted=true
+Authorization: 
+
+
+### Add Gallery Image
+POST https://lil-project-1.herokuapp.com/api/gallery
+Authorization: 
+Content-Type: multipart/form-data
+
+{
+    "label": "test",
+    "image": "jpg, jpeg or png less than 5 mb"
+}
+
+
+### Delete Gallery Image
+DELETE https://lil-project-1.herokuapp.com/api/gallery/5f0aa2e2c9da121df8368fc2
+Authorization: 
+
+
+### Restore Gallery Image
+DELETE https://lil-project-1.herokuapp.com/api/gallery/5f0aa2e2c9da121df8368fc2?delete=false
+Authorization: 
+
+
 ###
