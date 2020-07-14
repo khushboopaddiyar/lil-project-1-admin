@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import UserContext from '../context/UserContext'
 
+import Container from '@material-ui/core/Container'
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 
@@ -10,6 +11,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import moment from 'moment'
 
 
 const StyledTableCell = withStyles((theme) => ({
@@ -63,38 +65,36 @@ function ContactUs() {
         getData()
     }, [user.user.token])
 
-    // < div >
-    // { data.map(items => <p key={items._id} >{items.email}</p>) }
-    // </div >
-
-
-
 
     return (
 
-
+        <Container>
         <TableContainer component={Paper} >
             <Table className={classes.table} aria-label="customized table">
                 <TableHead>
                     <TableRow>
+                        <StyledTableCell>Sr. No.</StyledTableCell>
                         <StyledTableCell>Email</StyledTableCell>
-                        <StyledTableCell align="right">Name</StyledTableCell>
-                        <StyledTableCell align="right">Created At&nbsp;</StyledTableCell>
-                        <StyledTableCell align="right">Subject&nbsp;</StyledTableCell>
-                        <StyledTableCell align="right">Message&nbsp;</StyledTableCell>
+                        <StyledTableCell>Name</StyledTableCell>
+                        <StyledTableCell>Created At&nbsp;</StyledTableCell>
+                        <StyledTableCell>Subject&nbsp;</StyledTableCell>
+                        <StyledTableCell>Message&nbsp;</StyledTableCell>
 
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {data.map((row) => (
+                    {data.map((row, index) => (
                         <StyledTableRow key={row._id}>
+                            <StyledTableCell>
+                                {index+1}
+                            </StyledTableCell>
                             <StyledTableCell component="th" scope="row">
                                 {row.email}
                             </StyledTableCell>
-                            <StyledTableCell align="right">{row.name}</StyledTableCell>
-                            <StyledTableCell align="right">{row.createdAt}</StyledTableCell>
-                            <StyledTableCell align="right">{row.subject}</StyledTableCell>
-                            <StyledTableCell align="right">{row.message}</StyledTableCell>
+                            <StyledTableCell>{row.name}</StyledTableCell>
+                            <StyledTableCell>{moment(new Date(row.createdAt)).format('MMMM Do YYYY, h:mm:ss a')}</StyledTableCell>
+                            <StyledTableCell>{row.subject}</StyledTableCell>
+                            <StyledTableCell>{row.message}</StyledTableCell>
    
 
 
@@ -103,6 +103,7 @@ function ContactUs() {
                 </TableBody>
             </Table>
         </TableContainer>
+        </Container>
 
     )
 }

@@ -2,6 +2,7 @@ import React from 'react'
 import { Card, CardContent, CardMedia, Typography, IconButton, Tooltip } from '@material-ui/core'
 import { DeleteForeverRounded as DeleteIcon, RestoreFromTrashRounded as RestoreIcon, MailRounded as MailIcon } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles'
+import moment from 'moment'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -29,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Testimonial = props => {
     const classes = useStyles()
+    console.log(props)
     return (
         <>
             <Card className={classes.root}>
@@ -55,8 +57,8 @@ const Testimonial = props => {
                         <Typography variant="body2">
                             {
                                 props.deleted ?
-                                    'Deleted On ' + new Date(props.testimonial.updatedAt) :
-                                    'Created On ' + new Date(props.testimonial.createdAt)
+                                    'Deleted On ' + moment(new Date(props.testimonial.updatedAt)).format('MMMM Do YYYY, h:mm:ss a') :
+                                    'Created On ' + moment(new Date(props.testimonial.createdAt)).format('MMMM Do YYYY, h:mm:ss a')
                             }
                         </Typography>
                         <Tooltip title={props.deleted ? 'Restore' : 'Delete'} arrow>

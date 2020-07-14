@@ -17,7 +17,8 @@ const useStyles = makeStyles((theme) => ({
         transition: theme.transitions.create(['margin', 'width'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen
-        })
+        }),
+        backgroundColor: '#1a73e8'
     },
     appBarShift: {
         width: `calc(100% - ${drawerWidth}px)`,
@@ -113,6 +114,7 @@ const Navbar = props => {
                 }}
             >
                 <div className={classes.drawerHeader}>
+                    <Typography variant="h6">Admin</Typography>
                     <IconButton onClick={handleDrawerClose}>
                         {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
                     </IconButton>
@@ -131,6 +133,12 @@ const Navbar = props => {
                                 </ListItemIcon>
                                 <ListItemText primary='Home' />
                             </ListItem>
+                        </List>
+                        <Divider />
+                        <List>
+                            <ListItem>
+                                <ListItemText secondary='Requests' />
+                            </ListItem>
                             <ListItem component={NavLink} to="/demo" onClick={handleDrawerClose}>
                                 <ListItemIcon>
                                     <NotificationsIcon />
@@ -142,6 +150,12 @@ const Navbar = props => {
                                     <MailIcon />
                                 </ListItemIcon>
                                 <ListItemText primary='Contact Us' />
+                            </ListItem>
+                        </List>
+                        <Divider />
+                        <List>
+                            <ListItem>
+                                <ListItemText secondary='Customize Site' />
                             </ListItem>
                             <ListItem component={NavLink} to="/testimonials" onClick={handleDrawerClose}>
                                 <ListItemIcon>
