@@ -1,38 +1,46 @@
-// import React, { useEffect, useState, useContext } from 'react';
-// import UserContext from '../context/UserContext'
+import React, { useState, useEffect, useContext } from 'react'
 
-// const courses = () =>
-// {
-//      const user = useContext(UserContext)
-//     const [courses, setCourses] = useState([])
-//     const [deletecourses, setDeletedCourses] = useState([])
-// }
-// useEffect(() => {
-//     const getCourses = async () => {
-//         const result = await fetch('https://lil-project-1.herokuapp.com/api/courses', {
-//             headers: {
-//                 Authorization: user.user.token
-//             }
-//         })
-//         const json = await result.json()
-//         setCourses(json.data.courses)
-//     const deleteCourses = async() => {
-//         const result = await fetch('https://lil-project-1.herokuapp.com/api/courses?deleted=true',
-//         {
-//             headers:{
-//                 Authorization: application/json
-//             }
-//         }
-//         )
-//         const json2 = await result.json()
-//         setDeletedCourses(json2.data.courses)
+import UserContext from '../context/UserContext'
 
-//     }
-//     return(
-//         {
+const Courses = () => {
+    const user = useContext(UserContext)
 
-//         }
-//     )
-    
+    const [courses, setCourses] = useState([])
+    const [deletedCourses, setDeletedCourses] = useState([])
 
-// export default Courses;
+
+    useEffect(() => {
+        const getCourses = async () => {
+            const result = await fetch('https://lil-project-1.herokuapp.com/api/courses', {
+                headers: {
+                    Authorization: user.user.token
+                }
+            })
+            const json = await result.json()
+            setCourses(json.data.courses)
+
+            const result2 = await fetch('https://lil-project-1.herokuapp.com/api/courses?deleted=true', {
+                headers: {
+                    Authorization: user.user.token
+                }
+            })
+            const json2 = await result2.json()
+            setDeletedCourses(json2.data.courses)
+
+            console.log({ json, json2 })
+        }
+        getCourses()
+    }, [user.user.token])
+    return (
+
+        <>
+            <p> all courses </p>
+            {courses.map(items => <p key={items._id} >{items.title} :  {items.videoUrl}</p>)}
+
+        </>
+
+
+    )
+
+}
+export default Courses;
