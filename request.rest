@@ -146,4 +146,49 @@ DELETE https://lil-project-1.herokuapp.com/api/gallery/5f0aa2e2c9da121df8368fc2?
 Authorization: 
 
 
+### Get all Team Members
+GET https://lil-project-1.herokuapp.com/api/teammembers
+Authorization: 
+
+
+### Get all Deleted Team Members
+GET https://lil-project-1.herokuapp.com/api/teammembers?deleted=true
+Authorization: 
+
+
+### Get One Team Member
+GET https://lil-project-1.herokuapp.com/api/teammembers/5f0d9f1a252fba2738edc6ed
+Authorization: 
+
+
+### Add Team Member
+POST https://lil-project-1.herokuapp.com/api/teammembers
+Authorization: 
+
+{
+	"name": "Ekansh Jain",
+	"email": "ejekanshjain@gmail.com",
+	"contactNumber": "9530077351",
+	"description": "The Beginning is the End, And the End is the Beginning",
+	"linkedin": "https://linkedin.com/in/ejekanshjain",
+	"twitter": "https://twitter.com",
+	"image": "jpg, jpeg or png less than 5 mb"
+}
+
+
+### Update One team Memeber
+PATCH https://lil-project-1.herokuapp.com/api/teammembers/5f0d9f1a252fba2738edc6ed
+Authorization: 
+
+
+### Delete Team Member
+DELETE https://lil-project-1.herokuapp.com/api/teammembers/5f0d9f1a252fba2738edc6ed
+Authorization: 
+
+
+### Restore Team Member
+DELETE https://lil-project-1.herokuapp.com/api/teammembers/5f0d9f1a252fba2738edc6ed?delete=false
+Authorization: 
+
+
 ###

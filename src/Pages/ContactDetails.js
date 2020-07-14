@@ -199,6 +199,10 @@ const ContactDetails = () => {
                                         </form>
                                     </Container>
                                 </Paper>
+                                <br />
+                                <Typography>
+                                    Last Changed {moment(new Date(contactDetails.createdAt)).format('MMMM Do YYYY, h:mm:ss a')}
+                                </Typography>
                             </Container>
                         </>
                     }

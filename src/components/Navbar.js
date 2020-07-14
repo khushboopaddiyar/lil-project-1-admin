@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 import clsx from 'clsx'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import { Drawer, CssBaseline, AppBar, Toolbar, List, Typography, Divider, IconButton, ListItem, ListItemIcon, ListItemText, Dialog, DialogActions, DialogTitle, Button } from '@material-ui/core'
-import { Menu as MenuIcon, ChevronLeft as ChevronLeftIcon, ChevronRight as ChevronRightIcon, Mail as MailIcon, PowerSettingsNew as PowerIcon, Home as HomeIcon, Notifications as NotificationsIcon, RateReview as RateReviewIcon, AssignmentTurnedIn as AssignmentIcon, Info as InfoIcon, ContactSupport as ContactIcon, Image as GalleryIcon, Launch as LaunchIcon } from '@material-ui/icons'
+import { Menu as MenuIcon, ChevronLeft as ChevronLeftIcon, ChevronRight as ChevronRightIcon, Mail as MailIcon, PowerSettingsNew as PowerIcon, Home as HomeIcon, Notifications as NotificationsIcon, RateReview as RateReviewIcon, AssignmentTurnedIn as AssignmentIcon, Info as InfoIcon, ContactSupport as ContactIcon, Image as GalleryIcon, Launch as LaunchIcon, People as PeopleIcon } from '@material-ui/icons'
 
 import UserContext from '../context/UserContext'
 
@@ -17,8 +17,7 @@ const useStyles = makeStyles((theme) => ({
         transition: theme.transitions.create(['margin', 'width'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen
-        }),
-        backgroundColor: '#1a73e8'
+        })
     },
     appBarShift: {
         width: `calc(100% - ${drawerWidth}px)`,
@@ -133,6 +132,12 @@ const Navbar = props => {
                                 </ListItemIcon>
                                 <ListItemText primary='Home' />
                             </ListItem>
+                            <ListItem component="a" href="https://google.com" target="_blank" onClick={handleDrawerClose}>
+                                <ListItemIcon>
+                                    <LaunchIcon />
+                                </ListItemIcon>
+                                <ListItemText primary='Live Site' />
+                            </ListItem>
                         </List>
                         <Divider />
                         <List>
@@ -187,6 +192,12 @@ const Navbar = props => {
                                 </ListItemIcon>
                                 <ListItemText primary='Gallery' />
                             </ListItem>
+                            <ListItem component={NavLink} to="/teammembers" onClick={handleDrawerClose}>
+                                <ListItemIcon>
+                                    <PeopleIcon />
+                                </ListItemIcon>
+                                <ListItemText primary='Team Members' />
+                            </ListItem>
                         </List>
                         <Divider />
                         <List>
@@ -202,14 +213,6 @@ const Navbar = props => {
                         </List>
                     </>
                 }
-                <List>
-                    <ListItem component="a" href="https://google.com" target="_blank" onClick={handleDrawerClose}>
-                        <ListItemIcon>
-                            <LaunchIcon />
-                        </ListItemIcon>
-                        <ListItemText primary='Live Site' />
-                    </ListItem>
-                </List>
             </Drawer>
             <main
                 className={clsx(classes.content, {

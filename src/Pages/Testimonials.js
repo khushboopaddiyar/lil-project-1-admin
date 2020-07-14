@@ -122,8 +122,8 @@ const Testimonials = () => {
                             variant="fullWidth"
                             value={tab}
                             onChange={handleTabChange}
-                            indicatorColor="secondary"
-                            textColor="secondary"
+                            indicatorColor="primary"
+                            textColor="primary"
                         >
                             <Tab icon={<CheckOutlinedIcon />} label="Active" />
                             <Tab icon={<DeleteIcon />} label="Trash" />
