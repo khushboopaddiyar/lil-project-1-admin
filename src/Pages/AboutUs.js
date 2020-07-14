@@ -223,8 +223,8 @@ const About = () => {
                     {tab === 1 &&
                         <Container>
                             {
-                                allAboutUs.map((about, index) =>
-                                    <Card style={{ marginTop: 12 }}>
+                                allAboutUs.map(about =>
+                                    <Card style={{ marginTop: 12 }} key={about._id}>
                                         <CardContent>
                                             <Typography variant="subtitle2">
                                                 What Are We?
