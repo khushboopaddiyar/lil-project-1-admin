@@ -1,24 +1,46 @@
-import React from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+
+import UserContext from '../context/UserContext'
 
 const Courses = () => {
-    return (
-        <>
-            Courses Page
-            <br />
-            TODO Khushboo Paddiyar!
-            <br />
-            These functionalities are required:
-            <ul>
-                <li>View All Course</li>
-                <li>View Deleted Course</li>
-                <li>Add Course</li>
-                <li>Delete Course</li>
-                <li>Restore Course</li>
-                <li>Search Course</li>
-            </ul>
-            All the apis are listed in request.rest file
-        </>
-    )
-}
+    const user = useContext(UserContext)
 
-export default Courses
+    const [courses, setCourses] = useState([])
+    const [deletedCourses, setDeletedCourses] = useState([])
+
+
+    useEffect(() => {
+        const getCourses = async () => {
+            const result = await fetch('https://lil-project-1.herokuapp.com/api/courses', {
+                headers: {
+                    Authorization: user.user.token
+                }
+            })
+            const json = await result.json()
+            setCourses(json.data.courses)
+
+            const result2 = await fetch('https://lil-project-1.herokuapp.com/api/courses?deleted=true', {
+                headers: {
+                    Authorization: user.user.token
+                }
+            })
+            const json2 = await result2.json()
+            setDeletedCourses(json2.data.courses)
+
+            console.log({ json, json2 })
+        }
+        getCourses()
+    }, [user.user.token])
+    return (
+
+        <>
+            <p> all courses </p>
+            {courses.map(items => <p key={items._id} >{items.title} :  {items.videoUrl}</p>)}
+
+        </>
+
+
+    )
+
+}
+export default Courses;
