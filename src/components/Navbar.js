@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 import clsx from 'clsx'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import { Drawer, CssBaseline, AppBar, Toolbar, List, Typography, Divider, IconButton, ListItem, ListItemIcon, ListItemText, Dialog, DialogActions, DialogTitle, Button } from '@material-ui/core'
-import { Menu as MenuIcon, ChevronLeft as ChevronLeftIcon, ChevronRight as ChevronRightIcon, Mail as MailIcon, PowerSettingsNew as PowerIcon, Home as HomeIcon, Notifications as NotificationsIcon, RateReview as RateReviewIcon, AssignmentTurnedIn as AssignmentIcon } from '@material-ui/icons'
+import { Menu as MenuIcon, ChevronLeft as ChevronLeftIcon, ChevronRight as ChevronRightIcon, Mail as MailIcon, PowerSettingsNew as PowerIcon, Home as HomeIcon, Notifications as NotificationsIcon, RateReview as RateReviewIcon, AssignmentTurnedIn as AssignmentIcon, Info as InfoIcon, ContactSupport as ContactIcon } from '@material-ui/icons'
 
 import UserContext from '../context/UserContext'
 
@@ -168,6 +168,18 @@ const Navbar = props => {
                                     <AssignmentIcon />
                                 </ListItemIcon>
                                 <ListItemText primary='Courses' />
+                            </ListItem>
+                            <ListItem component={NavLink} to="/aboutus" onClick={handleDrawerClose}>
+                                <ListItemIcon>
+                                    <InfoIcon />
+                                </ListItemIcon>
+                                <ListItemText primary='About Us' />
+                            </ListItem>
+                            <ListItem component={NavLink} to="/contactdetails" onClick={handleDrawerClose}>
+                                <ListItemIcon>
+                                    <ContactIcon />
+                                </ListItemIcon>
+                                <ListItemText primary='Contact Details' />
                             </ListItem>
                         </List>
                         <Divider />
