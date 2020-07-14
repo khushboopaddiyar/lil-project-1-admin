@@ -143,4 +143,4 @@ const AddTestimonial = props => {
     )
 }
 
-export default AddTestimonial
+export default AddTestimonial;
