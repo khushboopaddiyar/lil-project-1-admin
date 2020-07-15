@@ -1,75 +1,53 @@
 import React, { useState, useEffect, useContext } from 'react'
-import Button from '@material-ui/core/Button';
+import { Snackbar, SnackbarContent, Container, LinearProgress, Paper, Tabs, Tab } from '@material-ui/core'
+
 import UserContext from '../context/UserContext'
-//import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-
-
-
-
+import AddCourse from '../components/AddCourse'
+import CourseList from '../components/CourseList'
 
 const Courses = () => {
-
     const user = useContext(UserContext)
+
+    const [isToastOpen, setIsToastOpen] = useState(false)
+    const [snackMessage, setToastMessage] = useState('')
+    const showToast = message => {
+        setIsToastOpen(true)
+        setToastMessage(message)
+    }
+    const handleToastClose = () => {
+        setIsToastOpen(false)
+        setToastMessage('')
+    }
+
+    const [isLoading, setIsLoading] = useState(true)
+
+    const [tab, setTab] = useState(0)
+    const handleTabChange = (event, newValue) => setTab(newValue)
+
     const [courses, setCourses] = useState([])
     const [deletedCourses, setDeletedCourses] = useState([])
-    const [open, setOpen] = React.useState(false);
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
-
-
-    const addCourse = async e => {
-        e.preventDefault()
-        const obj = {
-            title: e.currentTarget.elements.title.value,
-            videoUrl: e.currentTarget.elements.videoUrl.value
-        }
-        console.log(obj)
-        //console.log(obj)
-
-        const result = await fetch('https://lil-project-1.herokuapp.com/api/courses', {
-            method: 'POST',
-            headers: {
-                Authorization: user.user.token,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(obj)
-        })
-
-        const json = await result.json()
-        if (json.success) {
-            setCourses([json.data.course, ...courses])
-        }
-    }
     const deleteCourse = async id => {
-
-        const result = await fetch('https://lil-project-1.herokuapp.com/api/courses/' + id, {
-            method: 'DELETE',
-            headers: {
-                Authorization: user.user.token
+        try {
+            const result = await fetch('https://lil-project-1.herokuapp.com/api/courses/' + id, {
+                method: 'DELETE',
+                headers: {
+                    Authorization: user.user.token
+                }
+            })
+            const json = await result.json()
+            if (json.success) {
+                setCourses(courses.filter(course => course._id !== id))
+                setDeletedCourses([json.data.course, ...deletedCourses])
+                showToast(`Deleted course ${json.data.course.title}`)
+            } else {
+                showToast(json.message || 'Something Went Wrong!')
             }
-        })
-
-        const json = await result.json()
-
-        if (json.success) {
-            console.log(json.data.course)
-            const newCourses = courses.filter(course => course._id !== id)
-            setCourses(newCourses)
-            setDeletedCourses([json.data.course, ...deletedCourses])
+        } catch (err) {
+            console.log(err)
         }
     }
+
     const restoreCourse = async id => {
         const result = await fetch('https://lil-project-1.herokuapp.com/api/courses/' + id + '?delete=false', {
             method: 'DELETE',
@@ -79,89 +57,90 @@ const Courses = () => {
         })
         const json = await result.json()
         if (json.success) {
-            console.log(json.data.course)
-            const newCourses = deletedCourses.filter(course => course._id !== id)
-            setDeletedCourses(newCourses)
+            setDeletedCourses(deletedCourses.filter(course => course._id !== id))
             setCourses([json.data.course, ...courses])
+            showToast(`Restored course ${json.data.course.title}`)
+        } else {
+            showToast(json.message || 'Something Went Wrong!')
         }
     }
 
     useEffect(() => {
-        const getCourses = async () => {
-            const result = await fetch('https://lil-project-1.herokuapp.com/api/courses', {
-                headers: {
-                    Authorization: user.user.token
-                }
+        Promise.all([
+            new Promise((resolve, reject) => {
+                fetch('https://lil-project-1.herokuapp.com/api/courses', {
+                    headers: {
+                        Authorization: user.user.token
+                    }
+                })
+                    .then(res => res.json())
+                    .then(json => {
+                        if (json.success)
+                            resolve(json.data.courses)
+                        else
+                            reject(json)
+                    })
+                    .catch(err => reject(err))
+            }),
+            new Promise((resolve, reject) => {
+                fetch('https://lil-project-1.herokuapp.com/api/courses?deleted=true', {
+                    headers: {
+                        Authorization: user.user.token
+                    }
+                })
+                    .then(res => res.json())
+                    .then(json => {
+                        if (json.success)
+                            resolve(json.data.courses)
+                        else
+                            reject(json)
+                    })
+                    .catch(err => reject(err))
             })
-            const json = await result.json()
-            setCourses(json.data.courses)
-
-            const result2 = await fetch('https://lil-project-1.herokuapp.com/api/courses?deleted=true', {
-                headers: {
-                    Authorization: user.user.token
-                }
+        ])
+            .then(([courses, deletedCourses]) => {
+                setCourses(courses)
+                setDeletedCourses(deletedCourses)
+                setIsLoading(false)
             })
-            const json2 = await result2.json()
-            setDeletedCourses(json2.data.courses)
-
-            console.log({ json, json2 })
-        }
-        getCourses()
+            .catch(err => {
+                console.log(err)
+                showToast(err.message || err.toString() || 'Something Went Wrong!')
+            })
     }, [user.user.token])
 
     return (
-
         <>
-            <div align="right">
-                <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-                    Add Course
-            </Button>
-            </div>
-
-            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
-                <DialogContent>
-                    <form onSubmit={addCourse}>
-                        <input type="text" name="title" required />
-                        <input type="url" name="videoUrl" required />
-                        <button type="submit">Add Course</button>
-                        <button onClick={handleClose} type="submit">Cancel</button>
-
-                    </form>
-
-                </DialogContent>
-                <DialogActions>
-
-                </DialogActions>
-            </Dialog>
-
-            <p> All courses </p>
-            <ol>
-                {courses.map(items =>
-                    <li><p key={items._id} >{items.title} :  {items.videoUrl}
-
-                        <button key={items._id} onClick={deleteCourse.bind(this, items._id)} type="submit">delete Course</button>
-                    </p>
-
-                    </li>
-                )}
-            </ol>
-            <p>Deleted courses</p>
-
-            <ol>
-                {deletedCourses.map(items =>
-                    <li>
-                        <p key={items._id} >
-                            {items.title} :  {items.videoUrl}
-                            <button key={items._id} onClick={restoreCourse.bind(this, items._id)} type="submit">restore Course</button>
-                        </p>
-                    </li>)}
-            </ol>
-
+            {isLoading &&
+                <Container maxWidth="sm">
+                    <LinearProgress />
+                </Container>
+            }
+            {!isLoading &&
+                <Container>
+                    <AddCourse addCourse={course => {
+                        setCourses([course, ...courses])
+                        showToast('Course Added Successfully')
+                    }} />
+                    <Paper>
+                        <Tabs
+                            value={tab}
+                            indicatorColor="primary"
+                            textColor="primary"
+                            onChange={handleTabChange}
+                        >
+                            <Tab label="Active" />
+                            <Tab label="Trash" />
+                        </Tabs>
+                    </Paper>
+                    {tab === 0 && <CourseList deleted={false} courses={courses} remove={deleteCourse} />}
+                    {tab === 1 && <CourseList deleted={true} courses={deletedCourses} remove={restoreCourse} />}
+                </Container>
+            }
+            <Snackbar open={isToastOpen} autoHideDuration={5000} onClose={handleToastClose}>
+                <SnackbarContent message={snackMessage} />
+            </Snackbar>
         </>
-
-
     )
-
 }
-export default Courses;
+export default Courses

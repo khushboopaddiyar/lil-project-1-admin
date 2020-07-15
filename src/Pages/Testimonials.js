@@ -20,6 +20,9 @@ const Testimonials = () => {
         setToastMessage('')
     }
 
+    const [tab, setTab] = useState(0)
+    const handleTabChange = (event, newValue) => setTab(newValue)
+
     const [isLoading, setIsLoading] = useState(true)
     const [testimonials, setTestimonials] = useState([])
     const [deletedTestimonials, setDeletedTestimonials] = useState([])
@@ -59,9 +62,6 @@ const Testimonials = () => {
             })
             .catch(err => console.log(err))
     }
-
-    const [tab, setTab] = useState(0)
-    const handleTabChange = (event, newValue) => setTab(newValue)
 
     useEffect(() => {
         Promise.all([
@@ -116,7 +116,10 @@ const Testimonials = () => {
                     </Container>
                 }
                 {!isLoading && <>
-                    <AddTestimonial addTestimonial={testimonial => setTestimonials(prev => [...prev, testimonial])} />
+                    <AddTestimonial addTestimonial={testimonial => {
+                        setTestimonials([testimonial, ...testimonials])
+                        showToast('Testimonial Added Successfully!')
+                    }} />
                     <Paper>
                         <Tabs
                             variant="fullWidth"
