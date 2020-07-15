@@ -1,11 +1,169 @@
-import React from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+import Button from '@material-ui/core/Button';
+import UserContext from '../context/UserContext'
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
+
+
 
 const TeamMembers = () => {
+
+    const user = useContext(UserContext)
+    const [member, setMember] = useState([])
+    const [deletedMember, setDeleteMember] = useState([])
+    const [selectedFile, setSelectedFile] = useState('')
+    const [open, setOpen] = React.useState(false);
+    const handleFileChange = e => {
+        setSelectedFile(e.target.files[0])
+    }
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const handleUpload = async e => {
+        e.preventDefault()
+        const formData = new FormData()
+        if (selectedFile !== '')
+            formData.append('image', selectedFile, `${selectedFile.lastModified}-${selectedFile.name}`)
+        formData.append('name', e.currentTarget.elements.name.value)
+        formData.append('email', e.currentTarget.elements.email.value)
+        formData.append('contactNumber', e.currentTarget.elements.contactNumber.value)
+        formData.append('description', e.currentTarget.elements.description.value)
+        formData.append('linkedin', e.currentTarget.elements.linkedin.value)
+        formData.append('twitter', e.currentTarget.elements.twitter.value)
+        try {
+            const result = await fetch('https://lil-project-1.herokuapp.com/api/teammembers', {
+                method: 'POST',
+                headers: {
+                    Authorization: user.user.token
+                },
+                body: formData
+            })
+            const json = await result.json()
+            console.log(json)
+            if (json.success) {
+                setMember([json.data.teamMember, ...member])
+            }
+
+
+        } catch (err) {
+            console.log(err)
+        }
+
+
+    }
+
+    const deleteMember = async id => {
+
+        const result = await fetch('https://lil-project-1.herokuapp.com/api/teammembers/' + id, {
+            method: 'DELETE',
+            headers: {
+                Authorization: user.user.token
+            }
+        })
+
+        const json = await result.json()
+
+        if (json.success) {
+            console.log(json.data.teamMember)
+            const newCourses = member.filter(dele => dele._id !== id)
+            setMember(newCourses)
+            setDeleteMember([json.data.teamMember, ...deletedMember])
+        }
+    }
+
+    const restoreMember = async id => {
+        const result = await fetch('https://lil-project-1.herokuapp.com/api/teammembers/' + id + '?delete=false', {
+            method: 'DELETE',
+            headers: {
+                Authorization: user.user.token
+            }
+        })
+        const json = await result.json()
+        if (json.success) {
+            console.log(json.data.teamMember)
+            const newMember = member.filter(dele => dele._id !== id)
+            setDeleteMember(newMember)
+            setMember([json.data.teamMember, ...member])
+        }
+    }
+
+    useEffect(() => {
+        const getMember = async () => {
+            const result = await fetch('https://lil-project-1.herokuapp.com/api/teammembers', {
+                headers: {
+                    Authorization: user.user.token
+                }
+            })
+            const json = await result.json()
+            setMember(json.data.teamMembers)
+            const result2 = await fetch('https://lil-project-1.herokuapp.com/api/teammembers?deleted=true', {
+                headers: {
+                    Authorization: user.user.token
+                }
+            })
+            const json2 = await result2.json()
+            setDeleteMember(json2.data.teamMembers)
+
+            console.log({ json, json2 })
+        }
+        getMember()
+    }, [user.user.token])
+
+
+
     return (
         <>
             TODO Khushboo
+            <div align="right">
+                <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+                    Add Member
+            </Button>
+            </div>
+
+            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                <DialogTitle id="form-dialog-title">Add Member</DialogTitle>
+                <DialogContent>
+                    <form onSubmit={handleUpload}>
+                        <input type="text" placeholder="name" name="name" required />
+                        <input type="email" placeholder="email" name="email" required />
+                        <input type="number" placeholder="contact" name="contactNumber" required />
+                        <input type="text" placeholder="description" name="description" required />
+                        <input type="url" placeholder="url" name="linkedin" required />
+                        <input type="url" placeholder="url" name="twitter" required />
+                        <input type="file" placeholder="img" onChange={handleFileChange} />
+                        <button type="submit">Update</button>
+
+
+                    </form>
+
+                </DialogContent>
+
+            </Dialog>
+            <h1>All user</h1>
+            {member.map(items => <p key={items._id}>
+                {items.name}: {items.email}
+                <button key={items._id} onClick={deleteMember.bind(this, items._id)} type="submit">delete Course</button>
+            </p>)}
+            <h1>deleted user</h1>
+            {deletedMember.map(items => <p key={items._id}>
+                {items.name}:{items.email}
+                <button key={items._id} onClick={restoreMember.bind(this, items._id)} type="submit">restore Course</button>
+            </p>)}
+
+
         </>
     )
 }
 
-export default TeamMembers
+export default TeamMembers;
+
