@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactPlayer from 'react-player'
 
+
 const classes = {
     playerWrapper: {
         position: 'relative',

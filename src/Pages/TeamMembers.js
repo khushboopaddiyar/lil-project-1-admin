@@ -18,6 +18,7 @@ const TeamMembers = () => {
     const [deletedMember, setDeleteMember] = useState([])
     const [selectedFile, setSelectedFile] = useState('')
     const [open, setOpen] = React.useState(false);
+
     const handleFileChange = e => {
         setSelectedFile(e.target.files[0])
     }
@@ -28,6 +29,7 @@ const TeamMembers = () => {
     const handleClose = () => {
         setOpen(false);
     };
+
 
     const handleUpload = async e => {
         e.preventDefault()
@@ -75,7 +77,7 @@ const TeamMembers = () => {
 
         if (json.success) {
             console.log(json.data.teamMember)
-            const newCourses = member.filter(dele => dele._id !== id)
+            const newCourses = deletedMember.filter(dele => dele._id !== id)
             setMember(newCourses)
             setDeleteMember([json.data.teamMember, ...deletedMember])
         }
@@ -147,7 +149,9 @@ const TeamMembers = () => {
                     </form>
 
                 </DialogContent>
+                <DialogActions>
 
+                </DialogActions>
             </Dialog>
             <h1>All user</h1>
             {member.map(items => <p key={items._id}>

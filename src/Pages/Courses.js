@@ -8,9 +8,19 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
-
-
+//import Player from '../components/Player'
+import Player from '../components/Player'
+const classes = {
+    playerWrapper: {
+        position: 'relative',
+        paddingTop: '56.25%'
+    },
+    reactPlayer: {
+        position: 'absolute',
+        top: 0,
+        left: 0
+    }
+}
 
 
 const Courses = () => {
@@ -140,7 +150,11 @@ const Courses = () => {
                 {courses.map(items =>
                     <li><p key={items._id} >{items.title} :  {items.videoUrl}
 
-                        <button key={items._id} onClick={deleteCourse.bind(this, items._id)} type="submit">delete Course</button>
+                        <button key={items._id} onClick={deleteCourse.bind(this, items._id)} type="submit">
+                            <div>
+                                <Player src={items.videoUrl} />
+                            </div>
+                        delete Course</button>
                     </p>
 
                     </li>
