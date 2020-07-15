@@ -7,8 +7,47 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
-
+import ImportContactsIcon from '@material-ui/icons/ImportContacts';
+import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import Collapse from '@material-ui/core/Collapse';
+import Avatar from '@material-ui/core/Avatar';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+import { red } from '@material-ui/core/colors';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import ShareIcon from '@material-ui/icons/Share';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import LinkedInIcon from '@material-ui/icons/LinkedIn';
+import TwitterIcon from '@material-ui/icons/Twitter';
+const useStyles = makeStyles((theme) => ({
+    root: {
+        maxWidth: 345,
+    },
+    media: {
+        height: 0,
+        paddingTop: '56.25%', // 16:9
+    },
+    expand: {
+        transform: 'rotate(0deg)',
+        marginLeft: 'auto',
+        transition: theme.transitions.create('transform', {
+            duration: theme.transitions.duration.shortest,
+        }),
+    },
+    expandOpen: {
+        transform: 'rotate(180deg)',
+    },
+    avatar: {
+        backgroundColor: red[500],
+    },
+}));
 
 
 const TeamMembers = () => {
@@ -18,7 +57,12 @@ const TeamMembers = () => {
     const [deletedMember, setDeleteMember] = useState([])
     const [selectedFile, setSelectedFile] = useState('')
     const [open, setOpen] = React.useState(false);
+    const classes = useStyles();
+    const [expanded, setExpanded] = React.useState(false);
 
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
+    };
     const handleFileChange = e => {
         setSelectedFile(e.target.files[0])
     }
@@ -77,7 +121,7 @@ const TeamMembers = () => {
 
         if (json.success) {
             console.log(json.data.teamMember)
-            const newCourses = deletedMember.filter(dele => dele._id !== id)
+            const newCourses = member.filter(dele => dele._id !== id)
             setMember(newCourses)
             setDeleteMember([json.data.teamMember, ...deletedMember])
         }
@@ -93,7 +137,7 @@ const TeamMembers = () => {
         const json = await result.json()
         if (json.success) {
             console.log(json.data.teamMember)
-            const newMember = member.filter(dele => dele._id !== id)
+            const newMember = deletedMember.filter(dele => dele._id !== id)
             setDeleteMember(newMember)
             setMember([json.data.teamMember, ...member])
         }
@@ -125,7 +169,9 @@ const TeamMembers = () => {
 
     return (
         <>
+
             TODO Khushboo
+            // Dialog Box
             <div align="right">
                 <Button variant="outlined" color="primary" onClick={handleClickOpen}>
                     Add Member
@@ -154,10 +200,57 @@ const TeamMembers = () => {
                 </DialogActions>
             </Dialog>
             <h1>All user</h1>
-            {member.map(items => <p key={items._id}>
+
+            {member.map(items => <div
+                key={items._id}>
                 {items.name}: {items.email}
                 <button key={items._id} onClick={deleteMember.bind(this, items._id)} type="submit">delete Course</button>
-            </p>)}
+                <Card key={items._id} className={classes.root}>
+                    <CardHeader
+                        avatar={
+                            <Avatar aria-label="recipe" className={classes.avatar}>
+                                R
+          </Avatar>
+                        }
+                        action={
+                            <IconButton aria-label="settings">
+                                <MoreVertIcon />
+                            </IconButton>
+                        }
+                        title={items.name}
+                        subheader={items.email}
+                    />
+                    <CardMedia
+                        className={classes.media}
+                        image={items.imageUrl}
+
+                    />
+                    <CardContent>
+                        <Typography variant="body2" color="textSecondary" component="p">
+                            {items.description}
+                        </Typography>
+                    </CardContent>
+                    <CardActions disableSpacing>
+                        <IconButton aria-label="add to favorites">
+                            <ImportContactsIcon />
+                        </IconButton>
+                        <IconButton aria-label="share">
+                            <LinkedInIcon />
+                        </IconButton>
+                        <IconButton
+                            className={clsx(classes.expand, {
+                                [classes.expandOpen]: expanded,
+                            })}
+                            onClick={handleExpandClick}
+                            aria-expanded={expanded}
+                            aria-label="show more"
+                        >
+                            <ExpandMoreIcon />
+                        </IconButton>
+                    </CardActions>
+
+                </Card>
+            </div>)}
             <h1>deleted user</h1>
             {deletedMember.map(items => <p key={items._id}>
                 {items.name}:{items.email}
