@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 import clsx from 'clsx'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import { Drawer, CssBaseline, AppBar, Toolbar, List, Typography, Divider, IconButton, ListItem, ListItemIcon, ListItemText, Dialog, DialogActions, DialogTitle, Button } from '@material-ui/core'
-import { Menu as MenuIcon, ChevronLeft as ChevronLeftIcon, ChevronRight as ChevronRightIcon, Mail as MailIcon, PowerSettingsNew as PowerIcon, Home as HomeIcon, Notifications as NotificationsIcon, RateReview as RateReviewIcon, AssignmentTurnedIn as AssignmentIcon, Info as InfoIcon, ContactSupport as ContactIcon, Image as GalleryIcon, Launch as LaunchIcon, People as PeopleIcon } from '@material-ui/icons'
+import { Menu as MenuIcon, ChevronLeft as ChevronLeftIcon, ChevronRight as ChevronRightIcon, Mail as MailIcon, PowerSettingsNew as PowerIcon, Home as HomeIcon, Notifications as NotificationsIcon, RateReview as RateReviewIcon, AssignmentTurnedIn as AssignmentIcon, Info as InfoIcon, ContactSupport as ContactIcon, Image as GalleryIcon, Launch as LaunchIcon, People as PeopleIcon, SupervisorAccount as SupervisorAccountIcon } from '@material-ui/icons'
 
 import UserContext from '../context/UserContext'
 
@@ -198,6 +198,12 @@ const Navbar = props => {
                                 </ListItemIcon>
                                 <ListItemText primary='Team Members' />
                             </ListItem>
+                            <ListItem component={NavLink} to="/curators" onClick={handleDrawerClose}>
+                                <ListItemIcon>
+                                    <SupervisorAccountIcon />
+                                </ListItemIcon>
+                                <ListItemText primary='Curators' />
+                            </ListItem>
                         </List>
                         <Divider />
                         <List>
@@ -235,13 +241,13 @@ const Navbar = props => {
                     <DialogActions>
                         <Button onClick={handleAlertClose} color="primary" autoFocus>
                             No
-                    </Button>
+                        </Button>
                         <Button onClick={() => {
                             handleAlertClose()
                             user.logout()
                         }} color="secondary">
                             Yes
-                    </Button>
+                        </Button>
                     </DialogActions>
                 </Dialog>
             }

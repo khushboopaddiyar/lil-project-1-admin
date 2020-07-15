@@ -14,6 +14,7 @@ import AboutUs from './Pages/AboutUs'
 import ContactDetails from './Pages/ContactDetails'
 import Gallery from './Pages/Gallery'
 import TeamMembers from './Pages/TeamMembers'
+import Curators from './Pages/Curators'
 
 const App = () => {
     const [user, setUser] = useState({
@@ -72,6 +73,7 @@ const App = () => {
                                 {!user.token && <Redirect from="/contactdetails" to="/auth" exact />}
                                 {!user.token && <Redirect from="/gallery" to="/auth" exact />}
                                 {!user.token && <Redirect from="/teammembers" to="/auth" exact />}
+                                {!user.token && <Redirect from="/curators" to="/auth" exact />}
                                 {user.token && <Redirect from="/auth" to="/home" exact />}
                                 {user.token && <Redirect from="/" to="/home" exact />}
 
@@ -86,6 +88,7 @@ const App = () => {
                                 {user.token && <Route path="/contactdetails" component={ContactDetails} exact />}
                                 {user.token && <Route path="/gallery" component={Gallery} exact />}
                                 {user.token && <Route path="/teammembers" component={TeamMembers} exact />}
+                                {user.token && <Route path="/curators" component={Curators} exact />}
 
                                 {/* Handle Un-matched route */}
                                 <Redirect from="*" to="/" exact />

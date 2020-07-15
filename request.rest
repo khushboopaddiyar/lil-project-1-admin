@@ -191,4 +191,63 @@ DELETE https://lil-project-1.herokuapp.com/api/teammembers/5f0d9f1a252fba2738edc
 Authorization: 
 
 
+### Get all Curators
+GET https://lil-project-1.herokuapp.com/api/curators
+Authorization: 
+
+
+### Get all Deleted Curators
+GET https://lil-project-1.herokuapp.com/api/curators?deleted=true
+Authorization: 
+
+
+### Get One Curator
+GET https://lil-project-1.herokuapp.com/api/curators/5f0d9f1a252fba2738edc6ed
+Authorization: 
+
+
+### Add Curator
+POST https://lil-project-1.herokuapp.com/api/curators
+Authorization: 
+
+{
+	"name": "Ekansh Jain",
+	"email": "ejekanshjain@gmail.com",
+	"contactNumber": "9530077351",
+	"title": "The Developer",
+	"description": "The Beginning is the End, And the End is the Beginning",
+	"github": "https://github.com/ejekanshjain",
+	"linkedin": "https://linkedin.com/in/ejekanshjain",
+	"twitter": "https://twitter.com",
+	"image": "jpg, jpeg or png less than 5 mb"
+}
+
+
+### Update One Curator
+PATCH https://lil-project-1.herokuapp.com/api/curators/5f0d9f1a252fba2738edc6ed
+Authorization: 
+
+{
+	"name": "Ekansh Jain",
+	"email": "ejekanshjain@gmail.com",
+	"contactNumber": "9530077351",
+	"title": "The Developer",
+	"description": "The Beginning is the End, And the End is the Beginning",
+	"github": "https://github.com/ejekanshjain",
+	"linkedin": "https://linkedin.com/in/ejekanshjain",
+	"twitter": "https://twitter.com",
+	"image": "jpg, jpeg or png less than 5 mb"
+}
+
+
+### Delete Curator
+DELETE https://lil-project-1.herokuapp.com/api/curators/5f0d9f1a252fba2738edc6ed
+Authorization: 
+
+
+### Restore Curator
+DELETE https://lil-project-1.herokuapp.com/api/curators/5f0d9f1a252fba2738edc6ed?delete=false
+Authorization: 
+
+
 ###
