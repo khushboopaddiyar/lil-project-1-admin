@@ -29,8 +29,10 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import EmailIcon from '@material-ui/icons/Email';
-//import 'bootstrap/dist/css/bootstrap.css';
+import '../assets/css/bootstrap-grid.min.css';
 import RemoveIcon from '@material-ui/icons/Remove';
+import { Tooltip } from '@material-ui/core'
+import { Phone as PhoneIcon } from '@material-ui/icons'
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: 345,
@@ -64,6 +66,9 @@ const TeamMembers = () => {
     const [open, setOpen] = React.useState(false);
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
+    const [isDialogOpen, setIsDialogOpen] = useState(false)
+    const handleDialogOpen = () => setIsDialogOpen(true)
+    const handleDialogClose = () => setIsDialogOpen(false)
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -175,139 +180,214 @@ const TeamMembers = () => {
     return (
         <>
 
-            TODO Khushboo
-            // Dialog Box
-            <div align="right">
-                <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-                    Add Member
+
+
+            <Button color="primary" onClick={handleDialogOpen} startIcon={<AddIcon />}>
+                Add Course
             </Button>
-            </div>
+            <Dialog open={isDialogOpen} onClose={handleDialogClose} aria-labelledby="form-dialog-title">
+                <DialogTitle id="form-dialog-title">Add Course</DialogTitle>
+                <form onSubmit={handleUpload}>
+                    <DialogContent>
+                        <DialogContentText>
+                            Please select a file and add a label for the image to be uploaded.
+                        </DialogContentText>
+                        <TextField
+                            autoFocus
+                            margin="normal"
+                            id="name"
+                            name="Name"
+                            label="Name"
+                            type="text"
+                            fullWidth
+                            required
+                        />
+                        <TextField
+                            autoFocus
+                            margin="normal"
+                            id="email"
+                            name="Email"
+                            label="Email"
+                            type="email"
+                            fullWidth
+                            required
+                        />
+                        <TextField
+                            autoFocus
+                            margin="normal"
+                            id="Contact_number"
+                            name="Contact Number"
+                            label="Contact Number"
+                            type="number"
+                            fullWidth
+                            required
+                        />
+                        <TextField
+                            autoFocus
+                            margin="normal"
+                            id="description"
+                            name="Description"
+                            label="Description"
+                            type="text"
+                            fullWidth
+                            required
+                        />
+                        <TextField
+                            autoFocus
+                            margin="normal"
+                            id="url"
+                            name="linkedin"
+                            label="Linkedin"
+                            type="url"
+                            fullWidth
+                            required
+                        />
+                        <TextField
+                            autoFocus
+                            margin="normal"
+                            id="url"
+                            name="Twitter"
+                            label="Twitter"
+                            type="url"
+                            fullWidth
+                            required
+                        />
 
-            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">Add Member</DialogTitle>
-                <DialogContent>
-                    <form onSubmit={handleUpload}>
-                        <input type="text" placeholder="name" name="name" required />
-                        <input type="email" placeholder="email" name="email" required />
-                        <input type="number" placeholder="contact" name="contactNumber" required />
-                        <input type="text" placeholder="description" name="description" required />
-                        <input type="url" placeholder="url" name="linkedin" required />
-                        <input type="url" placeholder="url" name="twitter" required />
-                        <input type="file" placeholder="img" onChange={handleFileChange} />
-                        <button type="submit">Update</button>
-
-
-                    </form>
-
-                </DialogContent>
-                <DialogActions>
-
-                </DialogActions>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleDialogClose} color="secondary">
+                            Cancel
+                        </Button>
+                        <Button type="submit" color="primary">
+                            Done
+                        </Button>
+                    </DialogActions>
+                </form>
             </Dialog>
             <h1>All user</h1>
+            <div className="row">
+                {member.map(items => <div
+                    key={items._id} className="col-sm-12 col-md-4 col-lg-3">
 
-            {member.map(items => <div
-                key={items._id}>
+                    <Card key={items._id} className={classes.root}>
+                        <CardHeader
+                            avatar={
+                                <Avatar aria-label="recipe" className={classes.avatar}>
+                                    {items.name.charAt(0)}
+                                </Avatar>
+                            }
 
-                <Card key={items._id} className={classes.root}>
-                    <CardHeader
-                        avatar={
-                            <Avatar aria-label="recipe" className={classes.avatar}>
-                                R
-                            </Avatar>
-                        }
+                            title={items.name}
+                            subheader={items.email}
 
-                        title={items.name}
-                        subheader={items.email}
+                        />
+                        <CardMedia
+                            className={classes.media}
+                            image={items.imageUrl}
 
-                    />
-                    <CardMedia
-                        className={classes.media}
-                        image={items.imageUrl}
+                        />
+                        <CardContent>
+                            <Typography variant="body2" color="textSecondary" component="p">
+                                {items.description}
+                            </Typography>
+                        </CardContent>
+                        <CardActions disableSpacing>
 
-                    />
-                    <CardContent>
-                        <Typography variant="body2" color="textSecondary" component="p">
-                            {items.description}
-                        </Typography>
-                    </CardContent>
-                    <CardActions disableSpacing>
-
-                        <a href={items.linkedin}
-                            data-show-count="false" target="_ ">
-                            <IconButton aria-label="share">
-                                <LinkedInIcon />
+                            <a href={items.linkedin}
+                                data-show-count="false" target="_blank">
+                                <IconButton aria-label="share">
+                                    <LinkedInIcon />
+                                </IconButton>
+                            </a>
+                            <a href={items.twitter}
+                                data-show-count="false" target="_blank">
+                                <IconButton aria-label="share" >
+                                    <TwitterIcon />
+                                </IconButton>
+                            </a>
+                            <a href={"tel:" + items.contactNumber}>
+                                <Tooltip title={items.contactNumber} arrow>
+                                    <IconButton>
+                                        <PhoneIcon />
+                                    </IconButton>
+                                </Tooltip>
+                            </a>
+                            <IconButton aria-label="share"
+                                onClick={deleteMember.bind(this, items._id)} type="submit">
+                                <RemoveIcon />
                             </IconButton>
-                        </a>
-                        <a href={items.twitter}
-                            data-show-count="false" target="_ ">
-                            <IconButton aria-label="share" >
-                                <TwitterIcon />
+
+
+                        </CardActions>
+
+                    </Card>
+                </div>)}
+            </div>
+            <h1>Deleted user</h1>
+            <div className="row">
+                {deletedMember.map(items => <div key={items._id} className="col-sm-12 col-md-4 col-lg-3">
+
+
+                    <Card key={items._id} className={classes.root}>
+                        <CardHeader
+                            avatar={
+                                <Avatar aria-label="recipe" className={classes.avatar}>
+                                    {items.name.charAt(0)}
+                                </Avatar>
+                            }
+
+                            title={items.name}
+                            subheader={items.email}
+
+                        />
+                        <CardMedia
+                            className={classes.media}
+                            image={items.imageUrl}
+
+                        />
+                        <CardContent>
+                            <Typography variant="body2" color="textSecondary" component="p">
+                                {items.description}
+                            </Typography>
+                        </CardContent>
+                        <CardActions disableSpacing>
+
+                            <a href={items.linkedin}
+                                data-show-count="false" target="_blank">
+                                <IconButton aria-label="share">
+                                    <LinkedInIcon />
+                                </IconButton>
+                            </a>
+                            <a href={items.twitter}
+                                data-show-count="false" target="_blank">
+                                <IconButton aria-label="share" >
+                                    <TwitterIcon />
+                                </IconButton>
+                            </a>
+                            <a href={"tel:" + items.contactNumber}>
+                                <Tooltip title={items.contactNumber} arrow>
+                                    <IconButton>
+                                        <PhoneIcon />
+                                    </IconButton>
+                                </Tooltip>
+                            </a>
+                            <IconButton aria-label="share"
+                                onClick={restoreMember.bind(this, items._id)} type="submit">
+                                <AddIcon />
                             </IconButton>
-                        </a>
-                        <IconButton aria-label="share"
-                            onClick={deleteMember.bind(this, items._id)} type="submit">
-                            <RemoveIcon />
-                        </IconButton>
 
-
-                    </CardActions>
-
-                </Card>
-            </div>)}
-            <h1>deleted user</h1>
-            {deletedMember.map(items => <div key={items._id}>
-
-
-                <Card key={items._id} className={classes.root}>
-                    <CardHeader
-                        avatar={
-                            <Avatar aria-label="recipe" className={classes.avatar}>
-                                R
-                            </Avatar>
-                        }
-
-                        title={items.name}
-                        subheader={items.email}
-
-                    />
-                    <CardMedia
-                        className={classes.media}
-                        image={items.imageUrl}
-
-                    />
-                    <CardContent>
-                        <Typography variant="body2" color="textSecondary" component="p">
-                            {items.description}
-                        </Typography>
-                    </CardContent>
-                    <CardActions disableSpacing>
-
-                        <a href={items.linkedin}
-                            data-show-count="false" target="_ ">
-                            <IconButton aria-label="share">
-                                <LinkedInIcon />
+                            <IconButton aria-label="share"
+                                onClick={restoreMember.bind(this, items._id)} type="submit">
+                                <AddIcon />
                             </IconButton>
-                        </a>
-                        <a href={items.twitter}
-                            data-show-count="false" target="_ ">
-                            <IconButton aria-label="share" >
-                                <TwitterIcon />
-                            </IconButton>
-                        </a>
-                        <IconButton aria-label="share"
-                            onClick={restoreMember.bind(this, items._id)} type="submit">
-                            <AddIcon />
-                        </IconButton>
+
+                        </CardActions>
+
+                    </Card>
+                </div>)}
 
 
-                    </CardActions>
-
-                </Card>
-            </div>)}
-
-
-
+            </div >
 
         </>
     )
