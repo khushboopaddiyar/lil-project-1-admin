@@ -10,6 +10,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import ImportContactsIcon from '@material-ui/icons/ImportContacts';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
+import Icon from '@material-ui/core/Icon';
+import AddIcon from '@material-ui/icons/Add';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -26,6 +28,9 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import TwitterIcon from '@material-ui/icons/Twitter';
+import EmailIcon from '@material-ui/icons/Email';
+import 'bootstrap/dist/css/bootstrap.css';
+import RemoveIcon from '@material-ui/icons/Remove';
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: 345,
@@ -203,22 +208,18 @@ const TeamMembers = () => {
 
             {member.map(items => <div
                 key={items._id}>
-                {items.name}: {items.email}
-                <button key={items._id} onClick={deleteMember.bind(this, items._id)} type="submit">delete Course</button>
+                
                 <Card key={items._id} className={classes.root}>
                     <CardHeader
                         avatar={
                             <Avatar aria-label="recipe" className={classes.avatar}>
                                 R
-          </Avatar>
+                            </Avatar>
                         }
-                        action={
-                            <IconButton aria-label="settings">
-                                <MoreVertIcon />
-                            </IconButton>
-                        }
+
                         title={items.name}
                         subheader={items.email}
+
                     />
                     <CardMedia
                         className={classes.media}
@@ -231,31 +232,82 @@ const TeamMembers = () => {
                         </Typography>
                     </CardContent>
                     <CardActions disableSpacing>
-                        <IconButton aria-label="add to favorites">
-                            <ImportContactsIcon />
+
+                        <a href={items.linkedin}
+                            data-show-count="false" target="_ ">
+                            <IconButton aria-label="share">
+                                <LinkedInIcon />
+                            </IconButton>
+                        </a>
+                        <a href={items.twitter}
+                            data-show-count="false" target="_ ">
+                            <IconButton aria-label="share" >
+                                <TwitterIcon />
+                            </IconButton>
+                        </a>
+                        <IconButton aria-label="share"
+                            onClick={deleteMember.bind(this, items._id)} type="submit">
+                            <RemoveIcon />
                         </IconButton>
-                        <IconButton aria-label="share">
-                            <LinkedInIcon />
-                        </IconButton>
-                        <IconButton
-                            className={clsx(classes.expand, {
-                                [classes.expandOpen]: expanded,
-                            })}
-                            onClick={handleExpandClick}
-                            aria-expanded={expanded}
-                            aria-label="show more"
-                        >
-                            <ExpandMoreIcon />
-                        </IconButton>
+
+
                     </CardActions>
 
                 </Card>
             </div>)}
             <h1>deleted user</h1>
-            {deletedMember.map(items => <p key={items._id}>
-                {items.name}:{items.email}
-                <button key={items._id} onClick={restoreMember.bind(this, items._id)} type="submit">restore Course</button>
-            </p>)}
+            <div class="col-12 col-md-8 col-lg-6">
+                {deletedMember.map(items => <div key={items._id}>
+                    
+
+                    <Card key={items._id} className={classes.root}>
+                        <CardHeader
+                            avatar={
+                                <Avatar aria-label="recipe" className={classes.avatar}>
+                                    R
+                            </Avatar>
+                            }
+
+                            title={items.name}
+                            subheader={items.email}
+
+                        />
+                        <CardMedia
+                            className={classes.media}
+                            image={items.imageUrl}
+
+                        />
+                        <CardContent>
+                            <Typography variant="body2" color="textSecondary" component="p">
+                                {items.description}
+                            </Typography>
+                        </CardContent>
+                        <CardActions disableSpacing>
+
+                            <a href={items.linkedin}
+                                data-show-count="false" target="_ ">
+                                <IconButton aria-label="share">
+                                    <LinkedInIcon />
+                                </IconButton>
+                            </a>
+                            <a href={items.twitter}
+                                data-show-count="false" target="_ ">
+                                <IconButton aria-label="share" >
+                                    <TwitterIcon />
+                                </IconButton>
+                            </a>
+                            <IconButton aria-label="share"
+                                onClick={restoreMember.bind(this, items._id)} type="submit">
+                                <AddIcon />
+                            </IconButton>
+
+
+                        </CardActions>
+
+                    </Card>
+                </div>)}
+
+            </div>
 
 
         </>
