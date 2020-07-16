@@ -29,7 +29,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import EmailIcon from '@material-ui/icons/Email';
-import 'bootstrap/dist/css/bootstrap.css';
+//import 'bootstrap/dist/css/bootstrap.css';
 import RemoveIcon from '@material-ui/icons/Remove';
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -208,7 +208,7 @@ const TeamMembers = () => {
 
             {member.map(items => <div
                 key={items._id}>
-                
+
                 <Card key={items._id} className={classes.root}>
                     <CardHeader
                         avatar={
@@ -256,58 +256,57 @@ const TeamMembers = () => {
                 </Card>
             </div>)}
             <h1>deleted user</h1>
-            <div class="col-12 col-md-8 col-lg-6">
-                {deletedMember.map(items => <div key={items._id}>
-                    
+            {deletedMember.map(items => <div key={items._id}>
 
-                    <Card key={items._id} className={classes.root}>
-                        <CardHeader
-                            avatar={
-                                <Avatar aria-label="recipe" className={classes.avatar}>
-                                    R
+
+                <Card key={items._id} className={classes.root}>
+                    <CardHeader
+                        avatar={
+                            <Avatar aria-label="recipe" className={classes.avatar}>
+                                R
                             </Avatar>
-                            }
+                        }
 
-                            title={items.name}
-                            subheader={items.email}
+                        title={items.name}
+                        subheader={items.email}
 
-                        />
-                        <CardMedia
-                            className={classes.media}
-                            image={items.imageUrl}
+                    />
+                    <CardMedia
+                        className={classes.media}
+                        image={items.imageUrl}
 
-                        />
-                        <CardContent>
-                            <Typography variant="body2" color="textSecondary" component="p">
-                                {items.description}
-                            </Typography>
-                        </CardContent>
-                        <CardActions disableSpacing>
+                    />
+                    <CardContent>
+                        <Typography variant="body2" color="textSecondary" component="p">
+                            {items.description}
+                        </Typography>
+                    </CardContent>
+                    <CardActions disableSpacing>
 
-                            <a href={items.linkedin}
-                                data-show-count="false" target="_ ">
-                                <IconButton aria-label="share">
-                                    <LinkedInIcon />
-                                </IconButton>
-                            </a>
-                            <a href={items.twitter}
-                                data-show-count="false" target="_ ">
-                                <IconButton aria-label="share" >
-                                    <TwitterIcon />
-                                </IconButton>
-                            </a>
-                            <IconButton aria-label="share"
-                                onClick={restoreMember.bind(this, items._id)} type="submit">
-                                <AddIcon />
+                        <a href={items.linkedin}
+                            data-show-count="false" target="_ ">
+                            <IconButton aria-label="share">
+                                <LinkedInIcon />
                             </IconButton>
+                        </a>
+                        <a href={items.twitter}
+                            data-show-count="false" target="_ ">
+                            <IconButton aria-label="share" >
+                                <TwitterIcon />
+                            </IconButton>
+                        </a>
+                        <IconButton aria-label="share"
+                            onClick={restoreMember.bind(this, items._id)} type="submit">
+                            <AddIcon />
+                        </IconButton>
 
 
-                        </CardActions>
+                    </CardActions>
 
-                    </Card>
-                </div>)}
+                </Card>
+            </div>)}
 
-            </div>
+
 
 
         </>
