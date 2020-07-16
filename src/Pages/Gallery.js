@@ -10,19 +10,12 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { makeStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
-import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
-import LinkedInIcon from '@material-ui/icons/LinkedIn';
-import TwitterIcon from '@material-ui/icons/Twitter';
 import '../assets/css/bootstrap-grid.min.css';
-import RemoveIcon from '@material-ui/icons/Remove';
-import { Tooltip } from '@material-ui/core'
 import ControlPointIcon from '@material-ui/icons/ControlPoint';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 
@@ -141,10 +134,10 @@ const Gallery = () => {
     return (
         <>
             <Button color="primary" onClick={handleDialogOpen} startIcon={<AddIcon />}>
-                Add Team Member
+                Add Gallery Image
             </Button>
             <Dialog open={isDialogOpen} onClose={handleDialogClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">Add Team Member</DialogTitle>
+                <DialogTitle id="form-dialog-title">Add Gallery Image</DialogTitle>
                 <form onSubmit={handleUpload}>
                     <DialogContent>
                         <DialogContentText>
