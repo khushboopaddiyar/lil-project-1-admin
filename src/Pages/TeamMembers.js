@@ -29,8 +29,10 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import EmailIcon from '@material-ui/icons/Email';
-import 'bootstrap/dist/css/bootstrap.css';
+import '../assets/css/bootstrap-grid.min.css';
 import RemoveIcon from '@material-ui/icons/Remove';
+import { Tooltip } from '@material-ui/core'
+import { Phone as PhoneIcon } from '@material-ui/icons'
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: 345,
@@ -205,67 +207,16 @@ const TeamMembers = () => {
                 </DialogActions>
             </Dialog>
             <h1>All user</h1>
-
-            {member.map(items => <div
-                key={items._id}>
-                
-                <Card key={items._id} className={classes.root}>
-                    <CardHeader
-                        avatar={
-                            <Avatar aria-label="recipe" className={classes.avatar}>
-                                R
-                            </Avatar>
-                        }
-
-                        title={items.name}
-                        subheader={items.email}
-
-                    />
-                    <CardMedia
-                        className={classes.media}
-                        image={items.imageUrl}
-
-                    />
-                    <CardContent>
-                        <Typography variant="body2" color="textSecondary" component="p">
-                            {items.description}
-                        </Typography>
-                    </CardContent>
-                    <CardActions disableSpacing>
-
-                        <a href={items.linkedin}
-                            data-show-count="false" target="_ ">
-                            <IconButton aria-label="share">
-                                <LinkedInIcon />
-                            </IconButton>
-                        </a>
-                        <a href={items.twitter}
-                            data-show-count="false" target="_ ">
-                            <IconButton aria-label="share" >
-                                <TwitterIcon />
-                            </IconButton>
-                        </a>
-                        <IconButton aria-label="share"
-                            onClick={deleteMember.bind(this, items._id)} type="submit">
-                            <RemoveIcon />
-                        </IconButton>
-
-
-                    </CardActions>
-
-                </Card>
-            </div>)}
-            <h1>deleted user</h1>
-            <div class="col-12 col-md-8 col-lg-6">
-                {deletedMember.map(items => <div key={items._id}>
-                    
+            <div className="row">
+                {member.map(items => <div
+                    key={items._id} className="col-sm-12 col-md-4 col-lg-3">
 
                     <Card key={items._id} className={classes.root}>
                         <CardHeader
                             avatar={
                                 <Avatar aria-label="recipe" className={classes.avatar}>
-                                    R
-                            </Avatar>
+                                    {items.name.charAt(0)}
+                                </Avatar>
                             }
 
                             title={items.name}
@@ -285,16 +236,82 @@ const TeamMembers = () => {
                         <CardActions disableSpacing>
 
                             <a href={items.linkedin}
-                                data-show-count="false" target="_ ">
+                                data-show-count="false" target="_blank">
                                 <IconButton aria-label="share">
                                     <LinkedInIcon />
                                 </IconButton>
                             </a>
                             <a href={items.twitter}
-                                data-show-count="false" target="_ ">
+                                data-show-count="false" target="_blank">
                                 <IconButton aria-label="share" >
                                     <TwitterIcon />
                                 </IconButton>
+                            </a>
+                            <a href={"tel:" + items.contactNumber}>
+                                <Tooltip title={items.contactNumber} arrow>
+                                    <IconButton>
+                                        <PhoneIcon />
+                                    </IconButton>
+                                </Tooltip>
+                            </a>
+                            <IconButton aria-label="share"
+                                onClick={deleteMember.bind(this, items._id)} type="submit">
+                                <RemoveIcon />
+                            </IconButton>
+
+
+                        </CardActions>
+
+                    </Card>
+                </div>)}
+            </div>
+            <h1>deleted user</h1>
+            <div className="row">
+                {deletedMember.map(items => <div key={items._id} className="col-sm-12 col-md-4 col-lg-3">
+
+
+                    <Card key={items._id} className={classes.root}>
+                        <CardHeader
+                            avatar={
+                                <Avatar aria-label="recipe" className={classes.avatar}>
+                                    {items.name.charAt(0)}
+                                </Avatar>
+                            }
+
+                            title={items.name}
+                            subheader={items.email}
+
+                        />
+                        <CardMedia
+                            className={classes.media}
+                            image={items.imageUrl}
+
+                        />
+                        <CardContent>
+                            <Typography variant="body2" color="textSecondary" component="p">
+                                {items.description}
+                            </Typography>
+                        </CardContent>
+                        <CardActions disableSpacing>
+
+                            <a href={items.linkedin}
+                                data-show-count="false" target="_blank">
+                                <IconButton aria-label="share">
+                                    <LinkedInIcon />
+                                </IconButton>
+                            </a>
+                            <a href={items.twitter}
+                                data-show-count="false" target="_blank">
+                                <IconButton aria-label="share" >
+                                    <TwitterIcon />
+                                </IconButton>
+                            </a>
+                            <a href={"tel:" + items.contactNumber}>
+                                <Tooltip title={items.contactNumber} arrow>
+                                    <IconButton>
+                                        <PhoneIcon />
+                                    </IconButton>
+                                </Tooltip>
                             </a>
                             <IconButton aria-label="share"
                                 onClick={restoreMember.bind(this, items._id)} type="submit">
@@ -306,9 +323,7 @@ const TeamMembers = () => {
 
                     </Card>
                 </div>)}
-
             </div>
-
 
         </>
     )
