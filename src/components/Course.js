@@ -9,9 +9,6 @@ import '../assets/css/bootstrap-grid.min.css'
 const useStyles = makeStyles({
     root: {
         maxWidth: 320
-    },
-    media: {
-        height: 180
     }
 })
 
@@ -21,7 +18,6 @@ const Course = props => {
         <div className="col-sm-6 col-md-4 col-lg-3" style={{ marginTop: 6 }}>
             <Card className={classes.root}>
                 <CardMedia
-                    className={classes.media}
                     title={props.course.title}
                 >
                     <Player src={props.course.videoUrl} />

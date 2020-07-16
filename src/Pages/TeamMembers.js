@@ -7,28 +7,19 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import ImportContactsIcon from '@material-ui/icons/ImportContacts';
 import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
-import Icon from '@material-ui/core/Icon';
 import AddIcon from '@material-ui/icons/Add';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import TwitterIcon from '@material-ui/icons/Twitter';
-import EmailIcon from '@material-ui/icons/Email';
 import '../assets/css/bootstrap-grid.min.css';
 import RemoveIcon from '@material-ui/icons/Remove';
 import { Tooltip } from '@material-ui/core'
@@ -63,30 +54,18 @@ const TeamMembers = () => {
     const [member, setMember] = useState([])
     const [deletedMember, setDeleteMember] = useState([])
     const [selectedFile, setSelectedFile] = useState('')
-    const [open, setOpen] = React.useState(false);
     const classes = useStyles();
-    const [expanded, setExpanded] = React.useState(false);
     const [isDialogOpen, setIsDialogOpen] = useState(false)
     const handleDialogOpen = () => setIsDialogOpen(true)
     const handleDialogClose = () => setIsDialogOpen(false)
 
-    const handleExpandClick = () => {
-        setExpanded(!expanded);
-    };
     const handleFileChange = e => {
         setSelectedFile(e.target.files[0])
     }
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
-
 
     const handleUpload = async e => {
         e.preventDefault()
+        handleDialogClose()
         const formData = new FormData()
         if (selectedFile !== '')
             formData.append('image', selectedFile, `${selectedFile.lastModified}-${selectedFile.name}`)
@@ -183,14 +162,14 @@ const TeamMembers = () => {
 
 
             <Button color="primary" onClick={handleDialogOpen} startIcon={<AddIcon />}>
-                Add Course
+                Add Team Member
             </Button>
             <Dialog open={isDialogOpen} onClose={handleDialogClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">Add Course</DialogTitle>
+                <DialogTitle id="form-dialog-title">Add Team Member</DialogTitle>
                 <form onSubmit={handleUpload}>
                     <DialogContent>
                         <DialogContentText>
-                            Please select a file and add a label for the image to be uploaded.
+                            Please fill the details below.
                         </DialogContentText>
                         <TextField
                             autoFocus
@@ -203,7 +182,6 @@ const TeamMembers = () => {
                             required
                         />
                         <TextField
-                            autoFocus
                             margin="normal"
                             id="email"
                             name="Email"
@@ -213,17 +191,15 @@ const TeamMembers = () => {
                             required
                         />
                         <TextField
-                            autoFocus
                             margin="normal"
-                            id="Contact_number"
-                            name="Contact Number"
+                            id="ContactNumber"
+                            name="contactNumber"
                             label="Contact Number"
                             type="number"
                             fullWidth
                             required
                         />
                         <TextField
-                            autoFocus
                             margin="normal"
                             id="description"
                             name="Description"
@@ -233,9 +209,8 @@ const TeamMembers = () => {
                             required
                         />
                         <TextField
-                            autoFocus
                             margin="normal"
-                            id="url"
+                            id="linedin"
                             name="linkedin"
                             label="Linkedin"
                             type="url"
@@ -243,16 +218,24 @@ const TeamMembers = () => {
                             required
                         />
                         <TextField
-                            autoFocus
                             margin="normal"
-                            id="url"
-                            name="Twitter"
+                            id="twitter"
+                            name="twitter"
                             label="Twitter"
                             type="url"
                             fullWidth
                             required
                         />
-
+                        <TextField
+                            margin="normal"
+                            id="image"
+                            name="image"
+                            label="Image"
+                            type="file"
+                            fullWidth
+                            required
+                            onChange={handleFileChange}
+                        />
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={handleDialogClose} color="secondary">
@@ -294,13 +277,13 @@ const TeamMembers = () => {
                         <CardActions disableSpacing>
 
                             <a href={items.linkedin}
-                                data-show-count="false" target="_blank">
+                                data-show-count="false" target="_blank" rel="noopener noreferrer">
                                 <IconButton aria-label="share">
                                     <LinkedInIcon />
                                 </IconButton>
                             </a>
                             <a href={items.twitter}
-                                data-show-count="false" target="_blank">
+                                data-show-count="false" target="_blank" rel="noopener noreferrer">
                                 <IconButton aria-label="share" >
                                     <TwitterIcon />
                                 </IconButton>
@@ -353,13 +336,13 @@ const TeamMembers = () => {
                         <CardActions disableSpacing>
 
                             <a href={items.linkedin}
-                                data-show-count="false" target="_blank">
+                                data-show-count="false" target="_blank" rel="noopener noreferrer">
                                 <IconButton aria-label="share">
                                     <LinkedInIcon />
                                 </IconButton>
                             </a>
                             <a href={items.twitter}
-                                data-show-count="false" target="_blank">
+                                data-show-count="false" target="_blank" rel="noopener noreferrer">
                                 <IconButton aria-label="share" >
                                     <TwitterIcon />
                                 </IconButton>
@@ -371,11 +354,6 @@ const TeamMembers = () => {
                                     </IconButton>
                                 </Tooltip>
                             </a>
-                            <IconButton aria-label="share"
-                                onClick={restoreMember.bind(this, items._id)} type="submit">
-                                <AddIcon />
-                            </IconButton>
-
                             <IconButton aria-label="share"
                                 onClick={restoreMember.bind(this, items._id)} type="submit">
                                 <AddIcon />
