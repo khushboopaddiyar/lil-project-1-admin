@@ -190,7 +190,7 @@ const TeamMembers = () => {
                 <form onSubmit={handleUpload}>
                     <DialogContent>
                         <DialogContentText>
-                            Please select a file and add a label for the image to be uploaded.
+
                         </DialogContentText>
                         <TextField
                             autoFocus
@@ -216,7 +216,7 @@ const TeamMembers = () => {
                             autoFocus
                             margin="normal"
                             id="Contact_number"
-                            name="Contact Number"
+                            name="ContactNumber"
                             label="Contact Number"
                             type="number"
                             fullWidth
