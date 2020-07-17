@@ -18,6 +18,12 @@ import Typography from '@material-ui/core/Typography';
 import '../assets/css/bootstrap-grid.min.css';
 import ControlPointIcon from '@material-ui/icons/ControlPoint';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Box from '@material-ui/core/Box';
+
+
 
 
 const useStyles = makeStyles({
@@ -34,17 +40,16 @@ const Gallery = () => {
     const [isDialogOpen, setIsDialogOpen] = useState(false)
     const handleDialogOpen = () => setIsDialogOpen(true)
     const handleDialogClose = () => setIsDialogOpen(false)
-
     const handleFileChange = e => {
         setSelectedFile(e.target.files[0])
     }
-
 
     const classes = useStyles();
     const user = useContext(UserContext)
     const [gallery, setGallery] = useState([])
     const [selectedFile, setSelectedFile] = useState('')
     const [deletedGallery, setDeleteGallery] = useState([])
+    //add gallery
     const handleUpload = async e => {
         e.preventDefault()
         handleDialogClose()
@@ -72,7 +77,7 @@ const Gallery = () => {
             console.log(err)
         }
     }
-
+    // 
     const deleteGallery = async id => {
 
         const result = await fetch('https://lil-project-1.herokuapp.com/api/gallery/' + id, {
@@ -136,6 +141,7 @@ const Gallery = () => {
             <Button color="primary" onClick={handleDialogOpen} startIcon={<AddIcon />}>
                 Add Gallery Image
             </Button>
+            
             <Dialog open={isDialogOpen} onClose={handleDialogClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">Add Gallery Image</DialogTitle>
                 <form onSubmit={handleUpload}>

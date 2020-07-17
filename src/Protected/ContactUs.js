@@ -16,7 +16,7 @@ import moment from 'moment'
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
-        backgroundColor: theme.palette.common.black,
+        backgroundColor: "#1a73e8",
         color: theme.palette.common.white,
     },
     body: {
@@ -69,40 +69,40 @@ function ContactUs() {
     return (
 
         <Container>
-        <TableContainer component={Paper} >
-            <Table className={classes.table} aria-label="customized table">
-                <TableHead>
-                    <TableRow>
-                        <StyledTableCell>Sr. No.</StyledTableCell>
-                        <StyledTableCell>Email</StyledTableCell>
-                        <StyledTableCell>Name</StyledTableCell>
-                        <StyledTableCell>Created At&nbsp;</StyledTableCell>
-                        <StyledTableCell>Subject&nbsp;</StyledTableCell>
-                        <StyledTableCell>Message&nbsp;</StyledTableCell>
+            <TableContainer component={Paper} >
+                <Table className={classes.table} aria-label="customized table">
+                    <TableHead>
+                        <TableRow>
+                            <StyledTableCell>Sr. No.</StyledTableCell>
+                            <StyledTableCell>Email</StyledTableCell>
+                            <StyledTableCell>Name</StyledTableCell>
+                            <StyledTableCell>Created At&nbsp;</StyledTableCell>
+                            <StyledTableCell>Subject&nbsp;</StyledTableCell>
+                            <StyledTableCell>Message&nbsp;</StyledTableCell>
 
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {data.map((row, index) => (
-                        <StyledTableRow key={row._id}>
-                            <StyledTableCell>
-                                {index+1}
-                            </StyledTableCell>
-                            <StyledTableCell component="th" scope="row">
-                                {row.email}
-                            </StyledTableCell>
-                            <StyledTableCell>{row.name}</StyledTableCell>
-                            <StyledTableCell>{moment(new Date(row.createdAt)).format('MMMM Do YYYY, h:mm:ss a')}</StyledTableCell>
-                            <StyledTableCell>{row.subject}</StyledTableCell>
-                            <StyledTableCell>{row.message}</StyledTableCell>
-   
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {data.map((row, index) => (
+                            <StyledTableRow key={row._id}>
+                                <StyledTableCell>
+                                    {index + 1}
+                                </StyledTableCell>
+                                <StyledTableCell component="th" scope="row">
+                                    {row.email}
+                                </StyledTableCell>
+                                <StyledTableCell>{row.name}</StyledTableCell>
+                                <StyledTableCell>{moment(new Date(row.createdAt)).format('MMMM Do YYYY, h:mm:ss a')}</StyledTableCell>
+                                <StyledTableCell>{row.subject}</StyledTableCell>
+                                <StyledTableCell>{row.message}</StyledTableCell>
 
 
-                        </StyledTableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
+
+                            </StyledTableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
         </Container>
 
     )

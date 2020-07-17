@@ -42,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
     },
     drawerHeader: {
         display: 'flex',
+        color: '#0000A0',
         alignItems: 'center',
         padding: theme.spacing(0, 1),
         ...theme.mixins.toolbar,
@@ -113,7 +114,7 @@ const Navbar = props => {
                 }}
             >
                 <div className={classes.drawerHeader}>
-                    <Typography variant="h6">Admin</Typography>
+                    <Typography variant="h6" >Admin</Typography>
                     <IconButton onClick={handleDrawerClose}>
                         {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
                     </IconButton>

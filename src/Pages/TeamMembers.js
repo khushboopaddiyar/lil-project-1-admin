@@ -24,6 +24,7 @@ import '../assets/css/bootstrap-grid.min.css';
 import RemoveIcon from '@material-ui/icons/Remove';
 import { Tooltip } from '@material-ui/core'
 import { Phone as PhoneIcon } from '@material-ui/icons'
+
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: 345,
@@ -62,6 +63,17 @@ const TeamMembers = () => {
     const handleFileChange = e => {
         setSelectedFile(e.target.files[0])
     }
+    const [contactDetails, setContactDetails] = useState({
+        _id: '',
+        __v: '',
+        address: '',
+        email: '',
+        contactNumber: '',
+        linkedin: '',
+        facebook: '',
+        createdAt: '',
+        updatedAt: ''
+    })
 
     const handleUpload = async e => {
         e.preventDefault()

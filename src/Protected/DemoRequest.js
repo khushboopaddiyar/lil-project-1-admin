@@ -13,8 +13,8 @@ import Container from '@material-ui/core/Container';
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
-        backgroundColor: theme.palette.common.black,
-        color: theme.palette.common.white,
+        backgroundColor: "#1a73e8",
+        color: "White",
     },
     body: {
         fontSize: 14,
@@ -67,38 +67,38 @@ function DemoRequest() {
 
     return (
         <Container>
-        <TableContainer component={Paper} >
-            <Table className={classes.table} aria-label="customized table">
-                <TableHead>
-                    <TableRow>
-                        <StyledTableCell>Sr. No.</StyledTableCell>
-                        <StyledTableCell>Email</StyledTableCell>
-                        <StyledTableCell>Created At&nbsp;</StyledTableCell>
-                        <StyledTableCell>Message&nbsp;</StyledTableCell>
+            <TableContainer component={Paper} >
+                <Table className={classes.table} aria-label="customized table">
+                    <TableHead>
+                        <TableRow>
+                            <StyledTableCell>Sr. No.</StyledTableCell>
+                            <StyledTableCell>Email</StyledTableCell>
+                            <StyledTableCell>Created At&nbsp;</StyledTableCell>
+                            <StyledTableCell>Message&nbsp;</StyledTableCell>
 
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {data.map((row, index) => (
-                        <StyledTableRow key={row._id}>
-                            <StyledTableCell>
-                                {index+1}
-                            </StyledTableCell>
-                            <StyledTableCell component="th" scope="row">
-                                {row.email}
-                            </StyledTableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {data.map((row, index) => (
+                            <StyledTableRow key={row._id}>
+                                <StyledTableCell>
+                                    {index + 1}
+                                </StyledTableCell>
+                                <StyledTableCell component="th" scope="row">
+                                    {row.email}
+                                </StyledTableCell>
 
-                            <StyledTableCell>{moment(new Date(row.createdAt)).format('MMMM Do YYYY, h:mm:ss a')}</StyledTableCell>
+                                <StyledTableCell>{moment(new Date(row.createdAt)).format('MMMM Do YYYY, h:mm:ss a')}</StyledTableCell>
 
-                            <StyledTableCell>{row.message ? row.message : '-NA-'}</StyledTableCell>
+                                <StyledTableCell>{row.message ? row.message : '-NA-'}</StyledTableCell>
 
 
 
-                        </StyledTableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
+                            </StyledTableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
         </Container>
     )
 }
