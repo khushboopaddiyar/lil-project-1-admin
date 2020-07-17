@@ -23,6 +23,7 @@ import TwitterIcon from '@material-ui/icons/Twitter';
 import '../assets/css/bootstrap-grid.min.css';
 import RemoveIcon from '@material-ui/icons/Remove';
 import { Tooltip } from '@material-ui/core'
+import { green, indigo, } from '@material-ui/core/colors';
 
 import { Phone as PhoneIcon, Delete as DeleteIcon, CheckOutlined as CheckOutlinedIcon, Edit as EditIcon, GitHub as GithubIcon } from '@material-ui/icons'
 import { Tabs, Tab, Paper, Container } from '@material-ui/core'
@@ -354,19 +355,20 @@ const Curators = () => {
                                     </a>
                                     <a href={items.linkedin}
                                         data-show-count="false" target="_blank" rel="noopener noreferrer">
-                                        <IconButton aria-label="share">
+                                        <IconButton aria-label="share" style={{ color: indigo[500] }} >
                                             <LinkedInIcon />
                                         </IconButton>
                                     </a>
                                     <a href={items.twitter}
                                         data-show-count="false" target="_blank" rel="noopener noreferrer">
-                                        <IconButton aria-label="share" >
+                                        <IconButton aria-label="share"
+                                            color="primary" >
                                             <TwitterIcon />
                                         </IconButton>
                                     </a>
                                     <a href={"tel:" + items.contactNumber}>
                                         <Tooltip title={items.contactNumber} arrow>
-                                            <IconButton>
+                                            <IconButton style={{ color: green[500] }}>
                                                 <PhoneIcon />
                                             </IconButton>
                                         </Tooltip>
@@ -374,11 +376,11 @@ const Curators = () => {
                                     <IconButton onClick={() => {
                                         setIsEditCurators(true)
                                         setEditCurators(items)
-                                    }}>
+                                    }} color="secondary">
                                         <EditIcon />
                                     </IconButton>
                                     <IconButton aria-label="share"
-                                        onClick={deleteMember.bind(this, items._id)} type="submit">
+                                        onClick={deleteMember.bind(this, items._id)} type="submit" style={{ color: red[500] }}>
                                         <RemoveIcon />
                                     </IconButton>
 
@@ -429,25 +431,25 @@ const Curators = () => {
                                 </a>
                                 <a href={items.linkedin}
                                     data-show-count="false" target="_blank" rel="noopener noreferrer">
-                                    <IconButton aria-label="share">
+                                    <IconButton aria-label="share" style={{ color: indigo[500] }}>
                                         <LinkedInIcon />
                                     </IconButton>
                                 </a>
                                 <a href={items.twitter}
                                     data-show-count="false" target="_blank" rel="noopener noreferrer">
-                                    <IconButton aria-label="share" >
+                                    <IconButton aria-label="share" color="primary" >
                                         <TwitterIcon />
                                     </IconButton>
                                 </a>
                                 <a href={"tel:" + items.contactNumber}>
                                     <Tooltip title={items.contactNumber} arrow>
-                                        <IconButton>
+                                        <IconButton style={{ color: green[500] }}>
                                             <PhoneIcon />
                                         </IconButton>
                                     </Tooltip>
                                 </a>
                                 <IconButton aria-label="share"
-                                    onClick={restoreMember.bind(this, items._id)} type="submit">
+                                    onClick={restoreMember.bind(this, items._id)} type="submit" style={{ color: red[500] }}>
                                     <AddIcon />
                                 </IconButton>
 
@@ -455,6 +457,7 @@ const Curators = () => {
 
                         </Card>
                     </div>)}
+
 
 
 

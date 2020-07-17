@@ -27,6 +27,8 @@ import { Phone as PhoneIcon, Delete as DeleteIcon, CheckOutlined as CheckOutline
 import { Tabs, Tab, Paper, Container } from '@material-ui/core'
 import EditTeamMember from '../components/EditTeamMember'
 
+import { green, indigo, } from '@material-ui/core/colors';
+
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: 345,
@@ -327,19 +329,19 @@ const TeamMembers = () => {
 
                                     <a href={items.linkedin}
                                         data-show-count="false" target="_blank" rel="noopener noreferrer">
-                                        <IconButton aria-label="share">
+                                        <IconButton aria-label="share" style={{ color: indigo[500] }}>
                                             <LinkedInIcon />
                                         </IconButton>
                                     </a>
                                     <a href={items.twitter}
                                         data-show-count="false" target="_blank" rel="noopener noreferrer">
-                                        <IconButton aria-label="share" >
+                                        <IconButton aria-label="share" color="primary" >
                                             <TwitterIcon />
                                         </IconButton>
                                     </a>
                                     <a href={"tel:" + items.contactNumber}>
                                         <Tooltip title={items.contactNumber} arrow>
-                                            <IconButton>
+                                            <IconButton style={{ color: green[500] }}>
                                                 <PhoneIcon />
                                             </IconButton>
                                         </Tooltip>
@@ -347,11 +349,11 @@ const TeamMembers = () => {
                                     <IconButton onClick={() => {
                                         setIsEditTeamMember(true)
                                         setEditTeamMember(items)
-                                    }}>
+                                    }} color="secondary">
                                         <EditIcon />
                                     </IconButton>
                                     <IconButton aria-label="share"
-                                        onClick={deleteMember.bind(this, items._id)} type="submit">
+                                        onClick={deleteMember.bind(this, items._id)} type="submit" style={{ color: red[500] }}>
                                         <RemoveIcon />
                                     </IconButton>
 
@@ -393,25 +395,25 @@ const TeamMembers = () => {
 
                                     <a href={items.linkedin}
                                         data-show-count="false" target="_blank" rel="noopener noreferrer">
-                                        <IconButton aria-label="share">
+                                        <IconButton aria-label="share" style={{ color: indigo[500] }}>
                                             <LinkedInIcon />
                                         </IconButton>
                                     </a>
                                     <a href={items.twitter}
                                         data-show-count="false" target="_blank" rel="noopener noreferrer">
-                                        <IconButton aria-label="share" >
+                                        <IconButton aria-label="share" color="primary" >
                                             <TwitterIcon />
                                         </IconButton>
                                     </a>
                                     <a href={"tel:" + items.contactNumber}>
                                         <Tooltip title={items.contactNumber} arrow>
-                                            <IconButton>
+                                            <IconButton style={{ color: green[500] }}>
                                                 <PhoneIcon />
                                             </IconButton>
                                         </Tooltip>
                                     </a>
                                     <IconButton aria-label="share"
-                                        onClick={restoreMember.bind(this, items._id)} type="submit">
+                                        onClick={restoreMember.bind(this, items._id)} type="submit" style={{ color: red[500] }}>
                                         <AddIcon />
                                     </IconButton>
 
