@@ -133,7 +133,7 @@ const Navbar = props => {
                                 </ListItemIcon>
                                 <ListItemText primary='Home' />
                             </ListItem>
-                            <ListItem component="a" href="https://google.com" target="_blank" onClick={handleDrawerClose}>
+                            <ListItem component="a" href="https://lil-securelearning.herokuapp.com" target="_blank" onClick={handleDrawerClose}>
                                 <ListItemIcon>
                                     <LaunchIcon />
                                 </ListItemIcon>

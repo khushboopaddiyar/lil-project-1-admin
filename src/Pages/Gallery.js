@@ -18,12 +18,6 @@ import Typography from '@material-ui/core/Typography';
 import '../assets/css/bootstrap-grid.min.css';
 import ControlPointIcon from '@material-ui/icons/ControlPoint';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Box from '@material-ui/core/Box';
-
-
 
 
 const useStyles = makeStyles({
