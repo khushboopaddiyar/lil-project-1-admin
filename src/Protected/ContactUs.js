@@ -16,7 +16,7 @@ import moment from 'moment'
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
-        backgroundColor: "#1a73e8",
+        backgroundColor: "#e84393",
         color: theme.palette.common.white,
     },
     body: {

@@ -320,7 +320,7 @@ const Curators = () => {
                 {tab === 0 && <>
                     <div className="row">
                         {member.map(items => <div
-                            key={items._id} className="col-sm-12 col-md-4 col-lg-3">
+                            key={items._id} className="col-sm-12 col-md-6 col-lg-4" style={{ marginBottom: '8px' }}>
 
                             <Card key={items._id} className={classes.root}>
                                 <CardHeader
@@ -395,7 +395,7 @@ const Curators = () => {
 
                 {tab === 1 && <>
 
-                    {deletedMember.map(items => <div key={items._id} className="col-sm-12 col-md-4 col-lg-3">
+                    {deletedMember.map(items => <div key={items._id} className="col-sm-12 col-md-6 col-lg-4" style={{ marginBottom: '8px' }}>
 
 
                         <Card key={items._id} className={classes.root}>

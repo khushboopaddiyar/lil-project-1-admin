@@ -13,7 +13,7 @@ import Container from '@material-ui/core/Container';
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
-        backgroundColor: "#1a73e8",
+        backgroundColor: "#9b59b6",
         color: "White",
     },
     body: {
