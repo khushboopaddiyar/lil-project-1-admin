@@ -135,7 +135,7 @@ const Gallery = () => {
             <Button color="primary" onClick={handleDialogOpen} startIcon={<AddIcon />}>
                 Add Gallery Image
             </Button>
-            
+
             <Dialog open={isDialogOpen} onClose={handleDialogClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">Add Gallery Image</DialogTitle>
                 <form onSubmit={handleUpload}>
@@ -195,7 +195,7 @@ const Gallery = () => {
 
                         <CardActions>
                             <IconButton aria-label="share"
-                                onClick={deleteGallery.bind(this, items._id)} type="submit">
+                                onClick={deleteGallery.bind(this, items._id)} type="submit" style={{ color: red[500] }}>
                                 <RemoveCircleOutlineIcon />
                             </IconButton>
                         </CardActions>
@@ -224,7 +224,7 @@ const Gallery = () => {
 
                         <CardActions>
                             <IconButton aria-label="share"
-                                onClick={restoreGallery.bind(this, items._id)} type="submit">
+                                onClick={restoreGallery.bind(this, items._id)} type="submit" style={{ color: green[500] }}>
                                 <ControlPointIcon />
                             </IconButton>
                         </CardActions>
