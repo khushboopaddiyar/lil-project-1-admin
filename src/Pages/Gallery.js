@@ -178,7 +178,7 @@ const Gallery = () => {
 
             <h1>All Images</h1>
             <div className="row">
-                {gallery.map(items => <div key={items._id} className="col-sm-12 col-md-4 col-lg-3">
+                {gallery.map(items => <div key={items._id} className="col-sm-12 col-md-4 col-lg-3" style={{ marginBottom: '8px' }}>
                     <Card key={items._id} className={classes.root}>
 
                         <CardMedia
@@ -206,7 +206,7 @@ const Gallery = () => {
             </div>
             <h1>Deleted Image</h1>
             <div className="row">
-                {deletedGallery.map(items => <div key={items._id} className="col-sm-12 col-md-4 col-lg-3">
+                {deletedGallery.map(items => <div key={items._id} className="col-sm-12 col-md-4 col-lg-3" style={{ marginBottom: '8px' }}>
 
                     <Card key={items._id} className={classes.root}>
 
