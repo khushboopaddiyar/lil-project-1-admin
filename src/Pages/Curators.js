@@ -23,7 +23,11 @@ import TwitterIcon from '@material-ui/icons/Twitter';
 import '../assets/css/bootstrap-grid.min.css';
 import RemoveIcon from '@material-ui/icons/Remove';
 import { Tooltip } from '@material-ui/core'
-import { Phone as PhoneIcon, GitHub as GithubIcon } from '@material-ui/icons'
+
+import { Phone as PhoneIcon, Delete as DeleteIcon, CheckOutlined as CheckOutlinedIcon, Edit as EditIcon, GitHub as GithubIcon } from '@material-ui/icons'
+import { Tabs, Tab, Paper, Container } from '@material-ui/core'
+import EditCurators from '../components/EditCurators'
+
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: 345,
@@ -58,10 +62,16 @@ const Curators = () => {
     const [isDialogOpen, setIsDialogOpen] = useState(false)
     const handleDialogOpen = () => setIsDialogOpen(true)
     const handleDialogClose = () => setIsDialogOpen(false)
+    const [isEditCurators, setIsEditCurators] = useState(false)
+    const [editCurators, setEditCurators] = useState({})
+
+    const [tab, setTab] = useState(0)
+    const handleTabChange = (event, newValue) => setTab(newValue)
 
     const handleFileChange = e => {
         setSelectedFile(e.target.files[0])
     }
+
 
     const handleUpload = async e => {
         e.preventDefault()
@@ -130,6 +140,32 @@ const Curators = () => {
             setMember([json.data.curator, ...member])
         }
     }
+    const updateCurators = async formData => {
+        setIsEditCurators(false)
+        try {
+            const result = await fetch(`https://lil-project-1.herokuapp.com/api/curators/${editCurators._id}`, {
+                method: 'PATCH',
+                headers: {
+                    Authorization: user.user.token
+                },
+                body: formData
+            })
+            const json = await result.json()
+            console.log(json)
+            const newMembers = member.map(m => {
+                if (m._id === editCurators._id) {
+                    m = {
+                        ...json.data.curator
+                    }
+                }
+                return m
+            })
+            setMember(newMembers)
+            setEditCurators({})
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
     useEffect(() => {
         const getMember = async () => {
@@ -158,10 +194,11 @@ const Curators = () => {
         <>
 
 
-
-            <Button color="primary" onClick={handleDialogOpen} startIcon={<AddIcon />}>
-                Add Curator
+            <Container>
+                <Button color="primary" onClick={handleDialogOpen} startIcon={<AddIcon />}>
+                    Add Curator
             </Button>
+            </Container>
             <Dialog open={isDialogOpen} onClose={handleDialogClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">Add Curator</DialogTitle>
                 <form onSubmit={handleUpload}>
@@ -263,143 +300,170 @@ const Curators = () => {
                     </DialogActions>
                 </form>
             </Dialog>
-            <h1>All user</h1>
-            <div className="row">
-                {member.map(items => <div
-                    key={items._id} className="col-sm-12 col-md-4 col-lg-3">
+            {isEditCurators && <EditCurators curators={editCurators} close={() => setIsEditCurators(false)} updateCurators={updateCurators} />}
+            <Container maxWidth="md" style={{ marginBottom: '16px' }}>
+                <Paper>
+                    <Tabs
+                        variant="fullWidth"
+                        value={tab}
+                        onChange={handleTabChange}
+                        indicatorColor="primary"
+                        textColor="primary"
+                    >
+                        <Tab icon={<CheckOutlinedIcon />} label="Active" />
+                        <Tab icon={<DeleteIcon />} label="Trash" />
+                    </Tabs>
+                </Paper>
+            </Container>
+            <Container>
+                {tab === 0 && <>
+                    <div className="row">
+                        {member.map(items => <div
+                            key={items._id} className="col-sm-12 col-md-4 col-lg-3">
 
-                    <Card key={items._id} className={classes.root}>
-                        <CardHeader
-                            avatar={
-                                <Avatar aria-label="recipe" className={classes.avatar}>
-                                    {items.name.charAt(0)}
-                                </Avatar>
-                            }
+                            <Card key={items._id} className={classes.root}>
+                                <CardHeader
+                                    avatar={
+                                        <Avatar aria-label="recipe" className={classes.avatar}>
+                                            {items.name.charAt(0)}
+                                        </Avatar>
+                                    }
 
-                            title={items.name}
-                            subheader={items.email}
+                                    title={items.name}
+                                    subheader={items.email}
 
-                        />
-                        <CardMedia
-                            className={classes.media}
-                            image={items.imageUrl}
+                                />
+                                <CardMedia
+                                    className={classes.media}
+                                    image={items.imageUrl}
 
-                        />
-                        <CardContent>
-                            <Typography variant="body2" color="textSecondary" component="p">
-                                {items.title}
-                                <br />
-                                {items.description}
-                            </Typography>
-                        </CardContent>
-                        <CardActions disableSpacing>
-                            <a href={items.github}
-                                data-show-count="false" target="_blank" rel="noopener noreferrer">
-                                <IconButton aria-label="share">
-                                    <GithubIcon />
-                                </IconButton>
-                            </a>
-                            <a href={items.linkedin}
-                                data-show-count="false" target="_blank" rel="noopener noreferrer">
-                                <IconButton aria-label="share">
-                                    <LinkedInIcon />
-                                </IconButton>
-                            </a>
-                            <a href={items.twitter}
-                                data-show-count="false" target="_blank" rel="noopener noreferrer">
-                                <IconButton aria-label="share" >
-                                    <TwitterIcon />
-                                </IconButton>
-                            </a>
-                            <a href={"tel:" + items.contactNumber}>
-                                <Tooltip title={items.contactNumber} arrow>
-                                    <IconButton>
-                                        <PhoneIcon />
+                                />
+                                <CardContent>
+                                    <Typography variant="body2" color="textSecondary" component="p">
+                                        {items.title}
+                                        <br />
+                                        {items.description}
+                                    </Typography>
+                                </CardContent>
+                                <CardActions disableSpacing>
+                                    <a href={items.github}
+                                        data-show-count="false" target="_blank" rel="noopener noreferrer">
+                                        <IconButton aria-label="share">
+                                            <GithubIcon />
+                                        </IconButton>
+                                    </a>
+                                    <a href={items.linkedin}
+                                        data-show-count="false" target="_blank" rel="noopener noreferrer">
+                                        <IconButton aria-label="share">
+                                            <LinkedInIcon />
+                                        </IconButton>
+                                    </a>
+                                    <a href={items.twitter}
+                                        data-show-count="false" target="_blank" rel="noopener noreferrer">
+                                        <IconButton aria-label="share" >
+                                            <TwitterIcon />
+                                        </IconButton>
+                                    </a>
+                                    <a href={"tel:" + items.contactNumber}>
+                                        <Tooltip title={items.contactNumber} arrow>
+                                            <IconButton>
+                                                <PhoneIcon />
+                                            </IconButton>
+                                        </Tooltip>
+                                    </a>
+                                    <IconButton onClick={() => {
+                                        setIsEditCurators(true)
+                                        setEditCurators(items)
+                                    }}>
+                                        <EditIcon />
                                     </IconButton>
-                                </Tooltip>
-                            </a>
-                            <IconButton aria-label="share"
-                                onClick={deleteMember.bind(this, items._id)} type="submit">
-                                <RemoveIcon />
-                            </IconButton>
-
-
-                        </CardActions>
-
-                    </Card>
-                </div>)}
-            </div>
-            <h1>Deleted user</h1>
-            <div className="row">
-                {deletedMember.map(items => <div key={items._id} className="col-sm-12 col-md-4 col-lg-3">
-
-
-                    <Card key={items._id} className={classes.root}>
-                        <CardHeader
-                            avatar={
-                                <Avatar aria-label="recipe" className={classes.avatar}>
-                                    {items.name.charAt(0)}
-                                </Avatar>
-                            }
-
-                            title={items.name}
-                            subheader={items.email}
-
-                        />
-                        <CardMedia
-                            className={classes.media}
-                            image={items.imageUrl}
-
-                        />
-                        <CardContent>
-                            <Typography variant="body2" color="textSecondary" component="p">
-                                {items.title}
-                                <br />
-                                {items.description}
-                            </Typography>
-                        </CardContent>
-                        <CardActions disableSpacing>
-                            <a href={items.github}
-                                data-show-count="false" target="_blank" rel="noopener noreferrer">
-                                <IconButton aria-label="share">
-                                    <GithubIcon />
-                                </IconButton>
-                            </a>
-                            <a href={items.linkedin}
-                                data-show-count="false" target="_blank" rel="noopener noreferrer">
-                                <IconButton aria-label="share">
-                                    <LinkedInIcon />
-                                </IconButton>
-                            </a>
-                            <a href={items.twitter}
-                                data-show-count="false" target="_blank" rel="noopener noreferrer">
-                                <IconButton aria-label="share" >
-                                    <TwitterIcon />
-                                </IconButton>
-                            </a>
-                            <a href={"tel:" + items.contactNumber}>
-                                <Tooltip title={items.contactNumber} arrow>
-                                    <IconButton>
-                                        <PhoneIcon />
+                                    <IconButton aria-label="share"
+                                        onClick={deleteMember.bind(this, items._id)} type="submit">
+                                        <RemoveIcon />
                                     </IconButton>
-                                </Tooltip>
-                            </a>
-                            <IconButton aria-label="share"
-                                onClick={restoreMember.bind(this, items._id)} type="submit">
-                                <AddIcon />
-                            </IconButton>
-
-                        </CardActions>
-
-                    </Card>
-                </div>)}
 
 
-            </div >
+                                </CardActions>
 
+                            </Card>
+                        </div>)}
+                    </div>
+                </>}
+
+
+                {tab === 1 && <>
+
+                    {deletedMember.map(items => <div key={items._id} className="col-sm-12 col-md-4 col-lg-3">
+
+
+                        <Card key={items._id} className={classes.root}>
+                            <CardHeader
+                                avatar={
+                                    <Avatar aria-label="recipe" className={classes.avatar}>
+                                        {items.name.charAt(0)}
+                                    </Avatar>
+                                }
+
+                                title={items.name}
+                                subheader={items.email}
+
+                            />
+                            <CardMedia
+                                className={classes.media}
+                                image={items.imageUrl}
+
+                            />
+                            <CardContent>
+                                <Typography variant="body2" color="textSecondary" component="p">
+                                    {items.title}
+                                    <br />
+                                    {items.description}
+                                </Typography>
+                            </CardContent>
+                            <CardActions disableSpacing>
+                                <a href={items.github}
+                                    data-show-count="false" target="_blank" rel="noopener noreferrer">
+                                    <IconButton aria-label="share">
+                                        <GithubIcon />
+                                    </IconButton>
+                                </a>
+                                <a href={items.linkedin}
+                                    data-show-count="false" target="_blank" rel="noopener noreferrer">
+                                    <IconButton aria-label="share">
+                                        <LinkedInIcon />
+                                    </IconButton>
+                                </a>
+                                <a href={items.twitter}
+                                    data-show-count="false" target="_blank" rel="noopener noreferrer">
+                                    <IconButton aria-label="share" >
+                                        <TwitterIcon />
+                                    </IconButton>
+                                </a>
+                                <a href={"tel:" + items.contactNumber}>
+                                    <Tooltip title={items.contactNumber} arrow>
+                                        <IconButton>
+                                            <PhoneIcon />
+                                        </IconButton>
+                                    </Tooltip>
+                                </a>
+                                <IconButton aria-label="share"
+                                    onClick={restoreMember.bind(this, items._id)} type="submit">
+                                    <AddIcon />
+                                </IconButton>
+
+                            </CardActions>
+
+                        </Card>
+                    </div>)}
+
+
+
+                </>}
+            </Container>
         </>
     )
 }
+
 
 export default Curators;
 
