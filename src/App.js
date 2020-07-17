@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Switch, Redirect, Route } from 'react-router-dom'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
-
 import UserContext from './context/UserContext'
 import Auth from './Pages/Auth'
 import Navbar from './components/Navbar'
