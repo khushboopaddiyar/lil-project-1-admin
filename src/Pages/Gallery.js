@@ -44,7 +44,6 @@ const Gallery = () => {
     const [gallery, setGallery] = useState([])
     const [selectedFile, setSelectedFile] = useState('')
     const [deletedGallery, setDeleteGallery] = useState([])
-    //add gallery
     const handleUpload = async e => {
         e.preventDefault()
         handleDialogClose()
@@ -72,7 +71,6 @@ const Gallery = () => {
             console.log(err)
         }
     }
-    // 
     const deleteGallery = async id => {
 
         const result = await fetch('https://lil-project-1.herokuapp.com/api/gallery/' + id, {
@@ -85,10 +83,11 @@ const Gallery = () => {
         const json = await result.json()
 
         if (json.success) {
-            console.log(json.data.gallery)
             const newCourses = gallery.filter(dele => dele._id !== id)
             setGallery(newCourses)
             setDeleteGallery([json.data.gallery, ...deletedGallery])
+        } else {
+            alert(json.message)
         }
     }
 
@@ -115,7 +114,6 @@ const Gallery = () => {
                 }
             })
             const json = await result.json()
-            console.log(json)
             setGallery(json.data.gallery)
             const result2 = await fetch('https://lil-project-1.herokuapp.com/api/gallery?deleted=true', {
                 headers: {
@@ -124,8 +122,6 @@ const Gallery = () => {
             })
             const json2 = await result2.json()
             setDeleteGallery(json2.data.gallery)
-
-            console.log({ json, json2 })
         }
         getGallery()
     }, [user.user.token])
