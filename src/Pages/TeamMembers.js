@@ -95,12 +95,9 @@ const TeamMembers = () => {
                 body: formData
             })
             const json = await result.json()
-            console.log(json)
             if (json.success) {
                 setMember([json.data.teamMember, ...member])
             }
-
-
         } catch (err) {
             console.log(err)
         }
@@ -120,10 +117,11 @@ const TeamMembers = () => {
         const json = await result.json()
 
         if (json.success) {
-            console.log(json.data.teamMember)
             const newCourses = member.filter(dele => dele._id !== id)
             setMember(newCourses)
             setDeleteMember([json.data.teamMember, ...deletedMember])
+        } else {
+            alert(json.message)
         }
     }
 
@@ -136,7 +134,6 @@ const TeamMembers = () => {
         })
         const json = await result.json()
         if (json.success) {
-            console.log(json.data.teamMember)
             const newMember = deletedMember.filter(dele => dele._id !== id)
             setDeleteMember(newMember)
             setMember([json.data.teamMember, ...member])
@@ -154,7 +151,6 @@ const TeamMembers = () => {
                 body: formData
             })
             const json = await result.json()
-            console.log(json)
             const newMembers = member.map(m => {
                 if (m._id === editTeamMember._id) {
                     m = {
